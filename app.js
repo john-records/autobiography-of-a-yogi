@@ -103,8 +103,19 @@
   }
 
   // ---------- top-level render ----------
+  function hideMissingTools() {
+    ["gallery-link", "footnotes-link"].forEach(function (id) {
+      var btn = document.getElementById(id);
+      if (!btn) return;
+      var href = btn.getAttribute("href") || "";
+      fetch(href, { method: "HEAD", cache: "no-store" }).then(function (r) {
+        if (!r.ok && btn) btn.classList.add("hidden");
+      }).catch(function () { if (btn) btn.classList.add("hidden"); });
+    });
+  }
   function init() {
     restorePrefs();
+    hideMissingTools();
     buildToc();
     renderCover();
     bindEvents();

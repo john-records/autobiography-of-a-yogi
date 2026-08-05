@@ -5,7 +5,11 @@
 __pycache__/
 *.pyc
 
-# working copies / one-time scratch scripts (not part of the site)
+# local docs - keep private (do not commit or deploy)
+README.md
+REDDIT_POST.md
+
+# working copies / one-time scratch scripts
 annotations_raw.json
 smoke*.js
 diag*.js
