@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# working copies / one-time scratch scripts (not part of the site)
+annotations_raw.json
+smoke*.js
+diag*.js
+check_footnotes.js
+render_footnote.js
+audit.py
+build_entities.py
+build_names.py
+clean_text.py
+foot_entities.py
+img_foot.py
+img_lauder.py
+img_people.py
+img_people2.py
+improve.py
+patch_app.py
+scan_names.py
+search_cands.py
+test_imgs.py
+vk.py

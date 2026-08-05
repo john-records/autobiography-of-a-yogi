@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autobiography of a Yogi — An Annotated Edition</title>
+  <meta name="description" content="Read the public domain text of Paramahansa Yogananda's Autobiography of a Yogi, with annotations, footnotes, and linked references." />
+  <meta property="og:title" content="Autobiography of a Yogi — An Annotated Edition" />
+  <meta property="og:description" content="A beautiful, annotated public-domain reading edition with linked references." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%239a6b3f'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='40' fill='%23fdfbf5' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=5" />
+</head>
+<body>
+  <div id="progress"><div id="progress-bar"></div></div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <button id="toc-toggle" class="icon-btn" aria-label="Table of contents" title="Contents">☰</button>
+      <div class="brand">
+        <span class="brand-title">Autobiography of a Yogi</span>
+        <span class="brand-sub">An Annotated Edition · Public Domain</span>
+      </div>
+      <div class="controls">
+        <label class="size-ctrl" title="Text size">
+          <span>A−</span>
+          <input type="range" id="font-size" min="-2" max="3" value="0" />
+          <span>A+</span>
+        </label>
+        <div id="ring-wrap" class="ring" title="Reading progress">
+          <svg viewBox="0 0 36 36" width="30" height="30" aria-hidden="true">
+            <circle class="ring-bg" cx="18" cy="18" r="15.5" />
+            <circle id="ring-fg" class="ring-fg" cx="18" cy="18" r="15.5" />
+          </svg>
+          <span id="ring-pct" class="ring-pct">0%</span>
+        </div>
+        <button id="theme-toggle" class="icon-btn" title="Toggle theme">◐</button>
+        <button id="search-toggle" class="icon-btn" title="Search text">⌕</button>
+        <a class="icon-btn" href="gallery.html" title="Image & annotation gallery">🖼</a>
+        <a class="icon-btn" href="footnotes.html" title="Footnotes with images & links">🔖</a>
+      </div>
+    </div>
+    <div id="searchbox" class="searchbox hidden">
+      <input id="search-input" type="search" placeholder="Search the text… (Enter ↵)" />
+      <div id="search-results" class="search-results"></div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside id="toc" class="toc" aria-label="Table of contents"></aside>
+
+    <main id="main" class="main"></main>
+
+    <aside id="marginalia" class="marginalia" aria-label="Annotation panel">
+      <div id="note-panel" class="note-panel"></div>
+    </aside>
+  </div>
+
+  <footer class="reader-footer">
+    <button id="prev-ch" class="nav-btn">← Previous</button>
+    <span id="ch-position" class="ch-position"></span>
+    <button id="next-ch" class="nav-btn">Next →</button>
+  </footer>
+
+  <div id="toc-backdrop" class="toc-backdrop hidden"></div>
+
+  <div id="search-highlight-indicator" class="sh-indicator hidden"></div>
+
+  <script src="data.js?v=5"></script>
+  <script src="annotations.js?v=5"></script>
+  <script src="app.js?v=5"></script>
+</body>
+</html>

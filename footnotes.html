@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Footnotes with Images &amp; Links — Autobiography of a Yogi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=5" />
+  <style>
+    .g-head { max-width:1000px; margin:0 auto; padding:26px 20px 6px; }
+    .g-head h1 { font-family:var(--serif); font-size:32px; margin:0 0 4px; }
+    .g-head p { font-family:var(--sans); color:var(--ink-soft); margin:0 0 16px; font-size:14px; }
+    .g-head .top { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+    .nav { display:flex; gap:10px; }
+    .g-back { font-family:var(--sans); font-size:13px; color:var(--accent); text-decoration:none; border:1px solid var(--accent); padding:7px 13px; border-radius:20px; }
+    .g-back:hover { background:var(--accent-soft); }
+    .g-search { width:100%; max-width:460px; padding:10px 14px; font-family:var(--sans); font-size:15px;
+      border:1px solid var(--line); border-radius:10px; background:var(--paper); color:var(--ink); margin-bottom:16px; }
+    .g-stat { font-family:var(--sans); font-size:13px; color:var(--ink-soft); margin:0 0 16px; }
+    .f-list { max-width:1000px; margin:0 auto; padding:0 20px 60px; display:flex; flex-direction:column; gap:16px; }
+    .fc { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px 18px; box-shadow:0 6px 18px rgba(0,0,0,.05); }
+    .fc-head { display:flex; justify-content:space-between; gap:10px; margin-bottom:6px; }
+    .fc-ch { font-weight:600; font-family:var(--sans); font-size:13px; }
+    .fc-key { font-family:var(--sans); font-size:12px; color:var(--accent); font-weight:700; }
+    .fc-note { font-family:var(--serif); font-size:15px; line-height:1.55; margin-bottom:12px; }
+    .f-tags { display:flex; flex-wrap:wrap; gap:5px; align-items:center; margin-bottom:9px; }
+    .ftag-lbl { font-family:var(--sans); font-size:11px; color:var(--ink-soft); }
+    .ftag { font-family:var(--sans); font-size:11px; background:var(--accent-soft); padding:2px 8px; border-radius:10px; }
+    .f-links { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:11px; }
+    .fl { font-family:var(--sans); font-size:13px; color:var(--accent); text-decoration:none; }
+    .fl:hover { text-decoration:underline; }
+    .f-imgs { display:flex; flex-wrap:wrap; gap:10px; }
+    .fimg img { width:120px; height:120px; object-fit:cover; object-position:center 18%; border-radius:8px; border:1px solid var(--line); }
+    @media (max-width:680px){ .fimg img{width:88px;height:88px;} .fc{padding:12px;} }
+  </style>
+</head>
+<body>
+  <header class="g-head">
+    <div class="top">
+      <h1>Footnotes with Images &amp; Links</h1>
+      <div class="nav">
+        <a class="g-back" href="gallery.html">&#8592; Gallery</a>
+        <a class="g-back" href="index.html">&#8592; Reader</a>
+      </div>
+    </div>
+    <p>Every footnote that carries Wikipedia links or images when clicked in the reader. Enrichment uses both the note text and its surrounding sentence.</p>
+    <input id="f-search" class="g-search" type="search" placeholder="Filter by chapter, note key, or text…" />
+    <p id="f-stat" class="g-stat"></p>
+  </header>
+  <div id="f-list" class="f-list"></div>
+
+  <script src="data.js?v=5"></script>
+  <script src="annotations.js?v=5"></script>
+  <script>
+    (function () {
+      "use strict";
+      var CHAPTERS = window.CHAPTERS || [];
+      var ANN = window.ANNOTATIONS || [];
+      var fileUrl = "https://commons.wikimedia.org/wiki/Special:FilePath/";
+      function imgUrl(f, w) { return fileUrl + encodeURIComponent(String(f).replace(/ /g, "_")) + "?width=" + (w || 560); }
+      function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+      function stripHtml(h) { return String(h).replace(/<[^>]*>/g, " "); }
+      function enrich(note, context) {
+        var nlow = (note + " " + (context || "")).toLowerCase();
+        var found = new Map();
+        for (var i = 0; i < ANN.length; i++) {
+          var ann = ANN[i];
+          var ts = ann.terms || [];
+          for (var j = 0; j < ts.length; j++) {
+            var t = ts[j];
+            if (t && String(t).trim().length > 2 && nlow.indexOf(String(t).toLowerCase()) >= 0) { found.set(ann.id, ann); break; }
+          }
+        }
+        var images = [], links = [], seen = {}, tags = [];
+        found.forEach(function (ann) {
+          tags.push(ann.label);
+          if (ann.image) images.push(ann.image);
+          (ann.links || []).forEach(function (l) { if (!seen[l.url]) { seen[l.url] = true; links.push(l); } });
+        });
+        return { images: images, links: links, tags: tags };
+      }
+      var items = [];
+      CHAPTERS.forEach(function (c) {
+        var notes = c.endnotes || {};
+        var blocks = c.blocks || [];
+        var done = {};
+        blocks.forEach(function (b) {
+          var plain = stripHtml(b.html);
+          var m = String(b.html).match(/data-fn="([^"]+)"/g) || [];
+          m.forEach(function (x) {
+            var k = x.replace('data-fn="', '').replace('"', '');
+            if (done[k]) return; done[k] = true;
+            var en = enrich(notes[k] || "", plain);
+            if (en.links.length > 0 || en.images.length > 0) {
+              items.push({ ch: c.title, key: k, note: notes[k] || "", links: en.links, images: en.images, tags: en.tags });
+            }
+          });
+        });
+      });
+      function qtext(it) { return (it.ch + " " + it.key + " " + it.note + " " + (it.tags || []).join(" ")).toLowerCase(); }
+      function card(it) {
+        var links = it.links.map(function (l) { return '<a class="fl" href="' + esc(l.url) + '" target="_blank" rel="noopener">&#8599; ' + esc(l.label) + '</a>'; }).join("");
+        var tags = it.tags.map(function (t) { return '<span class="ftag">' + esc(t) + '</span>'; }).join("");
+        var imgs = it.images.map(function (f) {
+          return '<a class="fimg" href="' + imgUrl(f, 1200) + '" target="_blank" rel="noopener"><img loading="lazy" src="' + imgUrl(f, 320) + '" alt="' + esc(f) + '" onerror="this.style.display='none'"/></a>';
+        }).join("");
+        return '<div class="fc" data-q="' + esc(qtext(it)) + '">'
+          + '<div class="fc-head"><span class="fc-ch">' + esc(it.ch) + '</span><span class="fc-key">' + esc(it.key) + '</span></div>'
+          + '<div class="fc-note">' + esc(it.note) + '</div>'
+          + (tags ? '<div class="f-tags"><span class="ftag-lbl">Related:</span> ' + tags + '</div>' : '')
+          + (links ? '<div class="f-links">' + links + '</div>' : '')
+          + (imgs ? '<div class="f-imgs">' + imgs + '</div>' : '')
+          + '</div>';
+      }
+      var list = document.getElementById("f-list");
+      var stat = document.getElementById("f-stat");
+      var box = document.getElementById("f-search");
+      function render(f) {
+        var q = (f || "").toLowerCase().trim();
+        var shown = items.filter(function (it) { return !q || qtext(it).indexOf(q) >= 0; });
+        list.innerHTML = shown.map(card).join("");
+        var withImg = items.filter(function (it) { return it.images.length > 0; }).length;
+        stat.textContent = "Enriched footnotes: " + items.length + " · showing " + shown.length + " · " + withImg + " include images";
+      }
+      box.addEventListener("input", function () { render(box.value); });
+      render("");
+    })();
+  </script>
+</body>
+</html>
