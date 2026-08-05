@@ -18,7 +18,7 @@ jobs:
       - name: Assemble public reader
         run: |
           mkdir -p public
-          cp index.html styles.css app.js data.js annotations.js public/
+          cp index.html styles.css app.js data.js annotations.js footnote_overrides.js public/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

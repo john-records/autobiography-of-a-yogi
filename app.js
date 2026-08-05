@@ -287,18 +287,29 @@
   }
 
   function enrichFootnote(note, context) {
+    const tlow = note.toLowerCase();
     const nlow = (note + " " + (context || "")).toLowerCase();
-    const found = new Map();
+    const noteFound = new Map(), ctxOnly = new Map();
     for (const ann of ANNOTATIONS) {
+      let matched = false;
       for (const t of (ann.terms || [])) {
-        if (t && t.trim().length > 2 && nlow.indexOf(t.toLowerCase()) >= 0) { found.set(ann.id, ann); break; }
+        const tt = String(t).trim();
+        if (tt.length > 2 && tlow.indexOf(tt.toLowerCase()) >= 0) { noteFound.set(ann.id, ann); matched = true; break; }
+      }
+      if (!matched) {
+        for (const t of (ann.terms || [])) {
+          const tt = String(t).trim();
+          if (tt.length > 2 && nlow.indexOf(tt.toLowerCase()) >= 0) { ctxOnly.set(ann.id, ann); break; }
+        }
       }
     }
     const images = [], links = [], seen = new Set();
-    found.forEach((ann) => {
+    const addAnn = (ann, withLinks) => {
       if (ann.image) images.push(ann.image);
-      (ann.links || []).forEach((l) => { if (!seen.has(l.url)) { seen.add(l.url); links.push(l); } });
-    });
+      if (withLinks) (ann.links || []).forEach((l) => { if (!seen.has(l.url)) { seen.add(l.url); links.push(l); } });
+    };
+    noteFound.forEach((ann) => addAnn(ann, true));
+    ctxOnly.forEach((ann) => addAnn(ann, false));
     return { images, links };
   }
 
@@ -314,9 +325,16 @@
         const p = sup.closest("p");
         const ctx = p ? p.textContent : "";
         const en = enrichFootnote(note, ctx);
+        const ov = (window.FOOTNOTE_OVERRIDES || {})[key];
+        let shown = note;
+        if (ov) {
+          if (ov.note != null) shown = ov.note;
+          if (ov.images) en.images = ov.images;
+          if (ov.links) en.links = ov.links;
+        }
         showNote({
           title: ((c.title.match(/Chapter\s+(\d+)/) ? "Chapter " + c.title.match(/Chapter\s+(\d+)/)[1] : "Preface") + " · Note " + key + origin),
-          body: note,
+          body: shown,
           isFn: true,
           images: en.images,
           links: en.links
