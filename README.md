@@ -87,6 +87,18 @@ runs anywhere that serves files:
 All asset references are relative, and images/fonts are hotlinked from their
 CDNs, so nothing breaks on any host.
 
+## Live deployments
+
+Canonical tracker: this file, in the git repo (https://github.com/Kinnison-Tellus/autobiography-of-a-yogi).
+
+| Host | URL | Lifetime | How to update |
+| --- | --- | --- | --- |
+| GitHub Pages | https://kinnison-tellus.github.io/autobiography-of-a-yogi/ | permanent | `git add -A && git commit -m "..." && git push` |
+| here.now | https://russet-bamboo-b5sa.here.now/ | permanent (your account) | re-run the here-now skill: `scripts/publish.sh <site-folder>` |
+| Local (dev) | http://localhost:8977 | on demand | `python3 serve.py` |
+
+Keep this table updated whenever you change hosts; it is the single source of truth for where the book lives.
+
 ## Public-domain note
 
 The 1946 first edition of *Autobiography of a Yogi* fell into the public
