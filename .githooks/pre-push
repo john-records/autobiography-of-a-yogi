@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Runs after a successful push: republishes the static site to here.now (never blocks the push).
+nohup "$(dirname "$0")/../scripts/sync-herenow.sh" >> "$HOME/.herenow-sync.log" 2>&1 &
+exit 0

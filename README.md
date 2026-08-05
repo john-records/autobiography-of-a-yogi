@@ -99,6 +99,8 @@ Canonical tracker: this file, in the git repo (https://github.com/Kinnison-Tellu
 
 Keep this table updated whenever you change hosts; it is the single source of truth for where the book lives.
 
+Auto-sync: a committed git hook (core.hooksPath -> .githooks) republishes the site to here.now on every push - see scripts/sync-herenow.sh. A ready-to-paste Reddit post is in REDDIT_POST.md.
+
 ## Public-domain note
 
 The 1946 first edition of *Autobiography of a Yogi* fell into the public

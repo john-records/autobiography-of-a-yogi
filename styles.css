@@ -218,3 +218,33 @@ mark { background: #ffe082; color:#333; border-radius:3px; padding:0 2px; }
 @media (max-width: 980px) {
   .note-panel { margin-top: 18px; }
 }
+/* ---------- beauty pass ---------- */
+::selection { background: var(--accent); color: var(--paper); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+body {
+  background-image:
+    radial-gradient(circle at 50% -10%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 60%),
+    radial-gradient(circle at 95% 105%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 50%);
+  background-attachment: fixed;
+}
+.cover-photo { box-shadow: 0 16px 40px rgba(0,0,0,.22), 0 0 0 10px color-mix(in srgb, var(--accent-soft) 45%, transparent), 0 0 70px color-mix(in srgb, var(--seen) 35%, transparent); }
+.cover-title { letter-spacing: .01em; }
+.cover-actions .start { box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 45%, transparent); transition: transform .18s ease, box-shadow .18s ease; }
+.cover-actions .start:hover { transform: translateY(-2px); box-shadow: 0 10px 26px color-mix(in srgb, var(--accent) 55%, transparent); }
+.ch-divider { position: relative; width: 90px; height: 1px; background: var(--line); border: none; margin: 22px auto 0; }
+.ch-divider::after { content: "❦"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: var(--paper); color: var(--accent); padding: 0 8px; font-size: 15px; line-height: 1; }
+.note-card { border-top: 3px solid var(--accent); box-shadow: 0 14px 38px rgba(0,0,0,.10); }
+.note-card img { transition: transform .25s ease, box-shadow .25s ease; }
+.note-card img:hover { transform: scale(1.015); box-shadow: 0 8px 22px rgba(0,0,0,.18); }
+.note-card .close { transition: transform .15s ease; }
+.note-card .close:hover { transform: rotate(90deg); }
+.toc li.toc-item a.current { box-shadow: inset 3px 0 0 var(--accent); }
+.nav-btn, .g-back { transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
+.nav-btn:hover, .g-back:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+.fc, .g-card { transition: background .4s ease, color .4s ease, border-color .4s ease; }
+.ch-body { animation: chfade .5s ease; }
+@keyframes chfade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-soft); }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
