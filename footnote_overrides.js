@@ -4,7 +4,7 @@
 window.FOOTNOTE_OVERRIDES = {
  "FN1-2": {
   "images": [
-   "https://www.kriya.org/assets/images/menu_icon.png"
+   "https://www.kriya.org/assets/media/acharya_thumbnails/7_lg.jpg"
   ],
   "links": [
    {
