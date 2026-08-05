@@ -3,7 +3,9 @@
 // - note: replaces the footnote text (used to add KJV quotes)
 window.FOOTNOTE_OVERRIDES = {
  "FN1-2": {
-  "images": [],
+  "images": [
+   "https://www.kriya.org/./assets/media/banner_images/kriya-yoga-image-1629880628.png"
+  ],
   "links": [
    {
     "label": "Wikipedia",

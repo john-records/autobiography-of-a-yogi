@@ -79,6 +79,7 @@
   }
   function imgUrl(file, width) {
     if (!file) return null;
+    if (String(file).indexOf("http") === 0) return String(file);
     const w = width || 640;
     // Special:FilePath accepts spaces; encode for safety
     return fileUrl + encodeURIComponent(file.replace(/ /g, "_")) + "?width=" + w;
