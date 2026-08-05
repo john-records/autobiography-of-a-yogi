@@ -99,7 +99,7 @@ Canonical tracker: this file, in the git repo (https://github.com/Kinnison-Tellu
 
 Keep this table updated whenever you change hosts; it is the single source of truth for where the book lives.
 
-Auto-sync: a committed git hook (core.hooksPath -> .githooks) republishes the site to here.now on every push - see scripts/sync-herenow.sh. A ready-to-paste Reddit post is in REDDIT_POST.md.
+Auto-sync: a committed git hook (core.hooksPath -> .githooks) republishes the site to here.now on every push - see scripts/sync-herenow.sh. The here.now URL is stable because the sync republishes the same slug (russet-bamboo-b5sa) via --slug. A ready-to-paste Reddit post is in REDDIT_POST.md.
 
 ## Public-domain note
 
