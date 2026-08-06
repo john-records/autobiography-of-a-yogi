@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
-# Runs after a successful push: republishes the static site to here.now (never blocks the push).
+# git runs pre-push BEFORE the remote accepts the refs, so this hook cannot
+# publish directly. It launches scripts/sync-herenow.sh, which waits for the
+# remote to advertise the pushed HEAD before publishing — a rejected or
+# aborted push therefore never deploys. The sync is backgrounded so it never
+# blocks the push; its own output goes to $HOME/.herenow-sync.log.
 nohup "$(dirname "$0")/../scripts/sync-herenow.sh" >> "$HOME/.herenow-sync.log" 2>&1 &
 exit 0

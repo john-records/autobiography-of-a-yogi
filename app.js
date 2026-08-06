@@ -16,8 +16,6 @@
 
   // ---- state ----
   let currentIndex = -1; // index into CHAPTERS (-1 => cover)
-  const fileUrl = "https://commons.wikimedia.org/wiki/Special:FilePath/";
-  const annByTerm = buildTermIndex();
 
   // ---- persisted preferences (theme, font size) ----
   const THEME_KEY = "aoy-theme";
@@ -69,21 +67,13 @@
   const $ = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
 
-  function esc(s) {
-    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-  function stripTags(html) {
-    const t = document.createElement("div");
-    t.innerHTML = html;
-    return t.textContent;
-  }
-  function imgUrl(file, width) {
-    if (!file) return null;
-    if (String(file).indexOf("http") === 0) return String(file);
-    const w = width || 640;
-    // Special:FilePath accepts spaces; encode for safety
-    return fileUrl + encodeURIComponent(file.replace(/ /g, "_")) + "?width=" + w;
-  }
+  // Shared helpers live in shared.js (esc, escAttr, imgUrl, sanitize, enrich,
+  // block filtering) so the reader and the review tools cannot drift apart.
+  const esc = AOY.esc;
+  const escAttr = AOY.escAttr;
+  const stripTags = AOY.stripTags;
+  const sanitizeHtml = AOY.sanitizeHtml;
+  const imgUrl = AOY.imgUrl;
 
   // Global endnote map (for cross-chapter references like FN26-6 in ch27)
   const GLOBAL_NOTES = {};
@@ -91,24 +81,40 @@
     Object.keys(c.endnotes || {}).forEach((k) => { GLOBAL_NOTES[k] = { note: c.endnotes[k], chapter: c.title }; });
   });
 
-  // Build a lookup: normalized term -> annotation
-  function buildTermIndex() {
-    const idx = {};
+  // Precompiled per-term matchers (whole-word, no lookbehind, so they work on
+  // every engine and never throw). Compiled once at load, reused for every
+  // text node. Genuine cross-annotation term collisions are logged, not silent.
+  const TERM_MATCHERS = (function () {
+    const byKey = new Map();
     for (const ann of ANNOTATIONS) {
       for (const term of (ann.terms || [])) {
-        const t = term.trim();
-        if (t) idx[t.toLowerCase()] = ann;
+        const t = String(term).trim();
+        if (!t) continue;
+        const key = t.toLowerCase();
+        if (byKey.has(key) && byKey.get(key).ann !== ann) {
+          console.warn("[aoy] duplicate annotation term:", JSON.stringify(t), "->", ann.id, "(overrides", byKey.get(key).ann.id + ")");
+        }
+        byKey.set(key, {
+          ann: ann,
+          term: t,
+          re: new RegExp("(^|[^A-Za-z0-9])" + AOY.regEscape(t) + "(?![A-Za-z0-9])", "gi")
+        });
       }
     }
-    return idx;
-  }
+    return Array.from(byKey.values());
+  })();
 
   // ---------- top-level render ----------
   function hideMissingTools() {
+    // Public build: sync-herenow.sh marks the body data-local-tools="false",
+    // so the buttons are hidden without a 404-probing fetch (no button flash,
+    // and no dependence on the host answering unknown paths with 404).
+    const local = !document.body || document.body.dataset.localTools !== "false";
     ["gallery-link", "footnotes-link"].forEach(function (id) {
-      var btn = document.getElementById(id);
+      const btn = document.getElementById(id);
       if (!btn) return;
-      var href = btn.getAttribute("href") || "";
+      if (!local) { btn.classList.add("hidden"); return; }
+      const href = btn.getAttribute("href") || "";
       fetch(href, { method: "HEAD", cache: "no-store" }).then(function (r) {
         if (!r.ok && btn) btn.classList.add("hidden");
       }).catch(function () { if (btn) btn.classList.add("hidden"); });
@@ -168,8 +174,7 @@
     main.innerHTML = `
       <section class="cover">
         <div class="cover-photo">
-          <img src="${imgUrl("Paramahansa_Yogananda.jpg", 560)}" alt="Paramahansa Yogananda"
-               onerror="this.style.display='none'"/>
+          <img src="${imgUrl("Paramahansa_Yogananda.jpg", 560)}" alt="Paramahansa Yogananda"/>
         </div>
         <h1 class="cover-title">Autobiography<br/>of a Yogi</h1>
         <p class="cover-author">Paramahansa Yogananda</p>
@@ -189,6 +194,8 @@
     updateTocHighlight();
     updatePosition();
     window.scrollTo(0, 0);
+    const coverImg = $(".cover-photo img");
+    if (coverImg) coverImg.addEventListener("error", () => { coverImg.style.display = "none"; });
   }
 
   // ---------- chapter rendering ----------
@@ -198,10 +205,10 @@
     const c = CHAPTERS[idx];
     const main = $("#main");
 
-    const isEndnoteCap = /^Chapter_20$/.test(c.id); // no-op safeguard
-    let bodyHtml = c.blocks
-      .filter((b) => b.type === "p" && b.html.trim())
-      .map((b) => `<p>${b.html}</p>`)
+    // Single source of truth: AOY.renderableBlocks() — the search index uses
+    // the same filter so block indices always match the rendered DOM.
+    let bodyHtml = AOY.renderableBlocks(c)
+      .map((b) => `<p>${sanitizeHtml(b.html)}</p>`)
       .join("");
 
     main.innerHTML = `
@@ -209,7 +216,6 @@
         <header class="ch-head">
           <div class="ch-chapter">${chapterLabel(c)}</div>
           <h2 class="ch-title">${esc(titleClean(c))}</h2>
-          ${c.title.indexOf(":") >= 0 && /^Chapter/.test(c.title) ? "" : ""}
           <hr class="ch-divider"/>
         </header>
         ${bodyHtml}
@@ -224,39 +230,40 @@
     closeNote();
   }
 
-  // Wrap annotation terms in the body
-  function annotateBody(article) {
-    const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, {
+  // Collect descendant text nodes exactly once each. (Regression guard: a past
+  // version pushed the TreeWalker itself, so the annotation feature rendered
+  // nothing at all and search highlighting threw.)
+  function textNodesIn(root, rejectSel) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: (node) => {
-        if (node.parentNode && node.parentNode.closest("sup, .ann")) return NodeFilter.FILTER_REJECT;
+        if (rejectSel && node.parentNode && node.parentNode.closest(rejectSel)) return NodeFilter.FILTER_REJECT;
         const t = node.nodeValue;
         if (!t || !t.trim()) return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       }
     });
     const nodes = [];
-    while (walker.nextNode()) nodes.push(walker);
-    nodes.forEach(wrapTextNode);
+    let n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    return nodes;
+  }
+
+  // Wrap annotation terms in the body
+  function annotateBody(article) {
+    textNodesIn(article, "sup, .ann").forEach(wrapTextNode);
   }
 
   function wrapTextNode(node) {
     const text = node.nodeValue;
     const candidates = [];
-    for (const term in annByTerm) {
-      const ann = annByTerm[term];
-      let re = null;
-      try {
-        // Match whole words only: guard both ends so a term like "Christ"
-        // doesn't highlight inside "Christian"/"Christlike".
-        re = new RegExp(
-          "(?<![A-Za-z0-9])" + term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?![A-Za-z0-9])",
-          "gi"
-        );
-      }
-      catch (e) { continue; }
+    for (const mdef of TERM_MATCHERS) {
+      const re = mdef.re;
       let m;
       while ((m = re.exec(text)) !== null) {
-        candidates.push({ start: m.index, end: m.index + m[0].length, ann });
+        // m[1] is the captured leading boundary ("", or one non-word char).
+        const start = m.index + m[1].length;
+        candidates.push({ start: start, end: start + mdef.term.length, ann: mdef.ann });
+        if (m.index === re.lastIndex) re.lastIndex++;
       }
     }
     if (!candidates.length) return;
@@ -288,30 +295,7 @@
   }
 
   function enrichFootnote(note, context) {
-    const tlow = note.toLowerCase();
-    const nlow = (note + " " + (context || "")).toLowerCase();
-    const noteFound = new Map(), ctxOnly = new Map();
-    for (const ann of ANNOTATIONS) {
-      let matched = false;
-      for (const t of (ann.terms || [])) {
-        const tt = String(t).trim();
-        if (tt.length > 2 && tlow.indexOf(tt.toLowerCase()) >= 0) { noteFound.set(ann.id, ann); matched = true; break; }
-      }
-      if (!matched) {
-        for (const t of (ann.terms || [])) {
-          const tt = String(t).trim();
-          if (tt.length > 2 && nlow.indexOf(tt.toLowerCase()) >= 0) { ctxOnly.set(ann.id, ann); break; }
-        }
-      }
-    }
-    const images = [], links = [], seen = new Set();
-    const addAnn = (ann, withLinks) => {
-      if (ann.image) images.push(ann.image);
-      if (withLinks) (ann.links || []).forEach((l) => { if (!seen.has(l.url)) { seen.add(l.url); links.push(l); } });
-    };
-    noteFound.forEach((ann) => addAnn(ann, true));
-    ctxOnly.forEach((ann) => addAnn(ann, false));
-    return { images, links };
+    return AOY.enrichNote(note, context, ANNOTATIONS);
   }
 
   function bindFootnotes(article) {
@@ -338,7 +322,7 @@
           if (ov.links) en.links = ov.links;
         }
         showNote({
-          title: ((c.title.match(/Chapter\s+(\d+)/) ? "Chapter " + c.title.match(/Chapter\s+(\d+)/)[1] : "Preface") + " · Note " + key + origin),
+          title: (chapterLabel(c) + " · Note " + key + origin),
           body: shown,
           isFn: true,
           images: en.images,
@@ -353,17 +337,22 @@
     const panel = $("#note-panel");
     const images = ann.images || (ann.image ? [ann.image] : []);
     let imgs = "";
-    const hostOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return u; } };
+    const hostOf = AOY.hostOf;
     const escAttr = (s) => String(s == null ? "" : s).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
     images.forEach((f) => {
-      const credit = String(f).indexOf("http") === 0 ? ("Photo: " + hostOf(f)) : "Image: Wikimedia Commons (shared license)";
-      imgs += '<img src="' + escAttr(imgUrl(f)) + '" alt="' + esc(ann.label || ann.title || "annotation") + '" onerror="this.style.display=\x27none\x27"/>' +
+      const src = imgUrl(f);
+      if (!src) return;
+      const credit = AOY.isHttpUrl(f) ? ("Photo: " + hostOf(f)) : "Image: Wikimedia Commons (shared license)";
+      imgs += '<img src="' + escAttr(src) + '" alt="' + esc(ann.label || ann.title || "annotation") + '"/>' +
               "\n               <div class=\"src\"><span class=\"credit\">" + esc(credit) + "</span></div>";
     });
     let links = "";
     if (ann.links && ann.links.length) {
       const escAttr = (s) => String(s == null ? "" : s).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-      links = "<div class='links'>" + ann.links.map((l) => '<a href="' + escAttr(l.url) + '" target="_blank" rel="noopener">↗ ' + esc(l.label) + '</a>').join("") + "</div>";
+      links = "<div class='links'>" + ann.links.map((l) => {
+        const href = AOY.isHttpUrl(l.url) ? l.url : null;
+        return href ? '<a href="' + escAttr(href) + '" target="_blank" rel="noopener">↗ ' + esc(l.label) + '</a>' : "";
+      }).join("") + "</div>";
     }
     panel.innerHTML = `
       <div class="note-card${ann.isFn ? " fn-card" : ""}">
@@ -374,6 +363,8 @@
         ${links}
       </div>`;
     $(".note-card .close").onclick = closeNote;
+    // CSP blocks inline onerror attributes, so attach image fallbacks from script.
+    $$("img", panel).forEach((im) => im.addEventListener("error", () => { im.style.display = "none"; }));
     // reveal the notes drawer (right overlay) and dim behind it
     const notes = $("#marginalia");
     if (notes) notes.classList.add("open");
@@ -426,7 +417,13 @@
       if (currentIndex <= 0) { renderCover(); } else renderChapter(currentIndex - 1, true);
     };
     $("#next-ch").onclick = () => {
-      if (currentIndex >= 0 && currentIndex < CHAPTERS.length - 1) renderChapter(currentIndex + 1, true);
+      if (currentIndex < 0) {
+        // From the cover, Next begins reading.
+        const prefaceIdx = CHAPTERS.findIndex((c) => c.id === "Preface");
+        renderChapter(prefaceIdx >= 0 ? prefaceIdx : 0, true);
+      } else if (currentIndex < CHAPTERS.length - 1) {
+        renderChapter(currentIndex + 1, true);
+      }
     };
 
     // toc toggle: overlay drawer on all sizes
@@ -488,24 +485,38 @@
     $$("#toc a[data-idx]").forEach((a) => {
       a.classList.toggle("current", parseInt(a.dataset.idx, 10) === currentIndex);
     });
-    const label = currentIndex >= 0 ? CHAPTERS[currentIndex].title : "Cover";
     $("#ch-position").textContent = currentIndex >= 0
       ? (currentIndex + 1) + " of " + CHAPTERS.length
       : "Cover";
   }
 
   // ---------- search ----------
-  function buildSearchIndex() {
-    const idx = [];
+  // Lazy search index: built on first search, then memoized. Built from
+  // AOY.renderableBlocks() so indices match the DOM, and stripped with
+  // DOMParser (no innerHTML round-trip, so no resource loads or script parsing).
+  let SEARCH = null;
+  function searchIndex() {
+    if (SEARCH) return SEARCH;
+    SEARCH = [];
     CHAPTERS.forEach((c, ci) => {
-      c.blocks.forEach((b, bi) => {
+      AOY.renderableBlocks(c).forEach((b, bi) => {
         const plain = stripTags(b.html);
-        if (plain.trim()) idx.push({ ci, bi, text: plain, title: c.title });
+        if (plain.trim()) SEARCH.push({ ci: ci, bi: bi, text: plain, title: c.title });
       });
     });
-    return idx;
+    return SEARCH;
   }
-  const SEARCH = buildSearchIndex();
+
+  function highlightSnippet(text, q) {
+    const re = new RegExp(AOY.regEscape(q), "gi");
+    let out = "", last = 0, m;
+    while ((m = re.exec(text)) !== null) {
+      out += esc(text.slice(last, m.index)) + "<b>" + esc(m[0]) + "</b>";
+      last = m.index + m[0].length;
+      if (m.index === re.lastIndex) re.lastIndex++;
+    }
+    return out + esc(text.slice(last));
+  }
 
   function doSearch() {
     const q = $("#search-input").value.trim().toLowerCase();
@@ -513,6 +524,7 @@
     if (!q) { box.innerHTML = ""; return; }
     let html = '<div class="count">Results for “' + esc(q) + '”</div>';
     let n = 0;
+    const SEARCH = searchIndex();
     for (let i = 0; i < SEARCH.length && n < 40; i++) {
       const item = SEARCH[i];
       const idx = item.text.toLowerCase().indexOf(q);
@@ -520,10 +532,7 @@
       n++;
       const start = Math.max(0, idx - 60);
       const end = Math.min(item.text.length, idx + q.length + 80);
-      let snippet = item.text.slice(start, end);
-      snippet = esc(snippet);
-      const re = new RegExp(esc(q).replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
-      snippet = snippet.replace(re, (m) => "<b>" + m + "</b>");
+      const snippet = highlightSnippet(item.text.slice(start, end), q);
       const ns = start > 0 ? "…" : "";
       const ne = end < item.text.length ? "…" : "";
       html += `<div class="sr" data-ci="${item.ci}" data-bi="${item.bi}">${esc(titleClean(CHAPTERS[item.ci]))} — ${ns}${snippet}${ne}</div>`;
@@ -544,10 +553,9 @@
     const paras = $$(".ch-body p");
     const target = paras[bi];
     if (!target) return;
-    // highlight matches in target paragraph
-    const re = new RegExp(esc(q).replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
-    // re-annotate this paragraph after annotation engine already ran; skip (annotations preserved), just mark
-    highlightIn(target, re);
+    // highlightIn walks raw DOM text nodes, so the RAW query is regex-escaped
+    // here (the HTML-escaped form could never match).
+    highlightIn(target, new RegExp(AOY.regEscape(q), "gi"));
     setTimeout(() => {
       const y = target.getBoundingClientRect().top + window.scrollY - 90;
       window.scrollTo({ top: y, behavior: "smooth" });
@@ -555,12 +563,10 @@
   }
 
   function highlightIn(target, re) {
-    const walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT, {
-      acceptNode: (n) => n.parentNode && n.parentNode.closest(".ann, mark") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT
-    });
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker);
-    nodes.forEach((node) => {
+    // Walk real text nodes (reject only previously-marked text and footnote
+    // anchors); matching inside annotation spans is fine and keeps the marked
+    // text consistent with what the reader shows.
+    textNodesIn(target, "mark, sup").forEach((node) => {
       const text = node.nodeValue;
       let m; const parts = []; let last = 0;
       re.lastIndex = 0;

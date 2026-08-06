@@ -84,8 +84,6 @@ body {
 
 /* cover */
 .cover { text-align:center; padding:30px 10px 10px; }
-.cover .sun { width:120px; height:120px; margin:0 auto 24px; border-radius:50%;
-  background: radial-gradient(circle, var(--seen) 0%, var(--accent) 70%, transparent 72%); opacity:.85; }
 .cover .cover-title { font-size:56px; font-weight:600; line-height:1.05; margin:0 0 6px; }
 .cover .cover-author { font-size:26px; font-style:italic; color:var(--ink-soft); margin:0 0 22px; }
 .cover .cover-sub { font-family:var(--sans); font-size:14px; color:var(--ink-soft); letter-spacing:.5px; text-transform:uppercase; }

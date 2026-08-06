@@ -5,16 +5,34 @@
 __pycache__/
 *.pyc
 
-# local docs - keep private (do not commit or deploy)
+# local private docs (do not commit or deploy)
 README.md
 REDDIT_POST.md
 
-# working copies / one-time scratch scripts
+# review-tool state (here-now skill)
+.herenow/
+
+# scraped/source working copies kept local
+chapters/
+ws.json
+yogi_pg.txt
+meta.json
+
+# one-off data-munging / scraping scripts (kept local; results are committed in
+# curated form as data.js / chapters.json / annotations.js / footnote_overrides.js)
 annotations_raw.json
-smoke*.js
-diag*.js
-check_footnotes.js
-render_footnote.js
+convert.py
+curate.py
+enhance_annotations.py
+fetch.py
+final_hardening.py
+final_patch.py
+imgs.py
+imgverses.py
+inspect_footnotes.js
+kriya_*.py
+mega_fix.py
+refetch.py
 audit.py
 build_entities.py
 build_names.py
@@ -30,5 +48,10 @@ scan_names.py
 search_cands.py
 test_imgs.py
 vk.py
-gallery.html
-footnotes.html
+
+# throwaway test/diagnostic scripts (note: the committed regression suite lives in tests/)
+smoke*.js
+diag*.js
+check_footnotes.js
+render_footnote.js
+test*.js

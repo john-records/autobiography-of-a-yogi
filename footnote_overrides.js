@@ -119,9 +119,6 @@ window.FOOTNOTE_OVERRIDES = {
  "FN35-1": {
   "note": "MATTHEW 3:15.  KJV: But Jesus, answering, said to him,\n\u201cAllow it now, for this is the fitting way for us to fulfill all righteousness.\u201d Then he allowed him."
  },
- "FN35-3": {
-  "note": "MALACHI 4:5.  KJV: Behold, I will send you Elijah the prophet before the great and terrible day of Yahweh comes."
- },
  "FN35-5": {
   "note": "LUKE 1:13-17.  KJV: But the angel said to him, \u201cDon\u2019t be afraid, Zacharias, because your request has been heard, and your wife, Elizabeth, will bear you a son, and you shall call his name John.\nYou will have joy and gladness; and many will rejoice at his birth.\nFor he will be great in the sight of the Lord, and he will drink no wine nor strong drink. He will be filled with the Holy Spirit, even from his mother\u2019s womb.\nHe will turn many of the children of Israel to the Lord, their God.\nHe will go before him in the spirit and power of Elijah, \u2018to turn the hearts of the fathers to the children,\u2019 and the disobedient to the wisdom of the just; to prepare a people prepared for the Lord.\u201d"
  },
@@ -130,9 +127,6 @@ window.FOOTNOTE_OVERRIDES = {
  },
  "FN35-7": {
   "note": "MATTHEW 11:13-14.  KJV: For all the prophets and the law prophesied until John. And if ye will receive it, this is Elias, which was for to come."
- },
- "FN35-8": {
-  "note": "JOHN 1:21.  KJV: And they asked him, What then? Art thou Elias? And he saith, I am not. Art thou that prophet? And he answered, No."
  },
  "FN35-10": {
   "note": "MATTHEW 17:3.  KJV: And, behold, there appeared unto them Moses and Elias talking with him."

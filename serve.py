@@ -7,4 +7,6 @@ class H(http.server.SimpleHTTPRequestHandler):
         self.send_header('Expires', '0')
         super().end_headers()
 if __name__ == '__main__':
-    http.server.HTTPServer(('0.0.0.0', 8977), H).serve_forever()
+    # Loopback only: SimpleHTTPRequestHandler serves the whole repo (incl. .git
+    # and private/scratch files); binding 0.0.0.0 would expose all of it LAN-wide.
+    http.server.HTTPServer(('127.0.0.1', 8977), H).serve_forever()

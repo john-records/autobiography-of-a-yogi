@@ -138,7 +138,10 @@ window.ANNOTATIONS = [
   },   {
   id: "varanasi",
   label: "Varanasi (Benares / Kashi)",
-  terms: ["Benares", "Varanasi", "Kashi"],
+  // "Benares"/"Kashi" are owned by the dedicated `benares` entry below; keeping
+  // them here too would let buildTermIndex's last-write-wins silently strand one
+  // annotation. Unique terms keep both reachable.
+  terms: ["Varanasi"],
   image: "Varanasi_Munshi_Ghat3.jpg",
   note: "Varanasi (Benares, or Kashi) on the Ganges is among the world's oldest living cities and Hinduism's holiest — where Yogananda meets Kashi, the reborn disciple, in Chapter 28.",
   links: [{ label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Varanasi" }]
@@ -166,7 +169,7 @@ window.ANNOTATIONS = [
   },   {
   id: "om",
   label: "AUM (Om), the Cosmic Word",
-  terms: ["AUM", " Om "],
+  terms: ["AUM", "Om"],
   image: "Om devanagari.PNG",
   note: "AUM (Om) is the Sanskrit seed-syllable believed to be the cosmic vibratory sound behind all creation — the 'Word' that yogis hear within in deep meditation.",
   links: [{ label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Om" }]
