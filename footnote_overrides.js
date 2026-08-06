@@ -4,7 +4,7 @@
 window.FOOTNOTE_OVERRIDES = {
  "FN1-2": {
   "images": [
-   "https://www.kriya.org/assets/media/acharya_thumbnails/7_lg.jpg"
+   "Swami-hariharananda-giri.jpg"
   ],
   "links": [
    {
