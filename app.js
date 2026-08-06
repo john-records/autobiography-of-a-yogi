@@ -316,6 +316,10 @@
 
   function bindFootnotes(article) {
     $$("sup.fn", article).forEach((sup) => {
+      sup.setAttribute("role", "button");
+      sup.setAttribute("tabindex", "0");
+      sup.setAttribute("aria-label", "Footnote");
+      sup.addEventListener("keydown", (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); sup.click(); } });
       sup.onclick = () => {
         const key = sup.dataset.fn;
         const c = CHAPTERS[currentIndex];
@@ -349,13 +353,17 @@
     const panel = $("#note-panel");
     const images = ann.images || (ann.image ? [ann.image] : []);
     let imgs = "";
+    const hostOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return u; } };
+    const escAttr = (s) => String(s == null ? "" : s).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
     images.forEach((f) => {
-      imgs += `<img src="${imgUrl(f)}" alt="${esc(ann.label || ann.title || "annotation")}" onerror="this.style.display='none'"/>
-               <div class="src">Image: Wikimedia Commons (shared license)</div>`;
+      const credit = String(f).indexOf("http") === 0 ? ("Photo: " + hostOf(f)) : "Image: Wikimedia Commons (shared license)";
+      imgs += '<img src="' + escAttr(imgUrl(f)) + '" alt="' + esc(ann.label || ann.title || "annotation") + '" onerror="this.style.display=\x27none\x27"/>' +
+              "\n               <div class=\"src\"><span class=\"credit\">" + esc(credit) + "</span></div>";
     });
     let links = "";
     if (ann.links && ann.links.length) {
-      links = "<div class='links'>" + ann.links.map((l) => `<a href="${l.url}" target="_blank" rel="noopener">↗ ${esc(l.label)}</a>`).join("") + "</div>";
+      const escAttr = (s) => String(s == null ? "" : s).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+      links = "<div class='links'>" + ann.links.map((l) => '<a href="' + escAttr(l.url) + '" target="_blank" rel="noopener">↗ ' + esc(l.label) + '</a>').join("") + "</div>";
     }
     panel.innerHTML = `
       <div class="note-card${ann.isFn ? " fn-card" : ""}">
