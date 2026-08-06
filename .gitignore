@@ -55,3 +55,32 @@ diag*.js
 check_footnotes.js
 render_footnote.js
 test*.js
+
+# audiobook work (generated / large)
+.venv-audio/
+clips/
+review.html
+audio/
+recordings/
+verdicts.json
+proposals.*
+.review-cert/
+
+# narration verification: run artefacts, regenerable from the audio
+verify/
+confirm/
+narration_review.html
+*.log
+rare_report.*
+rare_terms.json
+term_counts.json
+.claude/
+
+# one-off narration helpers kept local (the pipeline itself is committed:
+# render_passage.py, verify_narration.py, confirm_findings.py, ...)
+apply_spoken_corrections.py
+build_review_page.py
+render_lexicon_clips.py
+review.sh
+review_server.py
+voice_to_ipa.py

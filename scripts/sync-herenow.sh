@@ -16,7 +16,7 @@ LOG="$HOME/.herenow-publish.log"
 REMOTE="${AOY_REMOTE:-origin}"
 BRANCH="${AOY_BRANCH:-main}"
 SLUG="russet-bamboo-b5sa"
-TITLE='Autobiography of a Yogi - Annotated Edition'
+TITLE='Autobiography of a Yogi - Annotated Edition with Audio'
 
 # ---- gate: wait for the remote to reflect HEAD ----------------------------
 head_sha="$(git rev-parse HEAD)"
@@ -34,17 +34,29 @@ fi
 # ---- stage the deploy set --------------------------------------------------
 SITE=$(mktemp -d)
 trap 'rm -rf "$SITE"' EXIT
-cp index.html styles.css app.js data.js annotations.js footnote_overrides.js shared.js "$SITE"/
+cp index.html styles.css app.js audio.js data.js annotations.js footnote_overrides.js shared.js "$SITE"/
+# LICENSE ships too, so the CC0 dedication the cover points at has a real
+# address on the live site and not only in the repo.
+cp LICENSE "$SITE"/
+
+# The narration: one mp3 and one timings JSON per chapter. Chapters not yet
+# rendered are simply absent, and the player hides itself for those. The
+# review-page scratch renders (smooth_*.mp3, *_options.mp3) are never copied.
+mkdir -p "$SITE/audio"
+while read -r id; do
+  [ -f "audio/$id.mp3" ] && cp "audio/$id.mp3" "audio/$id.json" "$SITE/audio/"
+done < <(./.venv-audio/bin/python -c "
+import json
+for c in json.load(open('chapters.json')): print(c['id'])
+")
+echo "[sync] narration: $(ls "$SITE/audio"/*.mp3 2>/dev/null | wc -l | tr -d ' ') chapters, $(du -sh "$SITE/audio" 2>/dev/null | cut -f1)"
 
 # Content-hash cache busters: rewrite ?v= for every asset so a changed file is
 # never served stale and returning readers always get the new build.
-for f in shared.js annotations.js footnote_overrides.js data.js app.js styles.css; do
+for f in shared.js annotations.js footnote_overrides.js data.js app.js audio.js styles.css; do
   h="$(shasum -a 256 "$SITE/$f" | cut -c1-10)"
   sed -i '' -E "s|($f)\?v=[0-9a-zA-Z]+|\1?v=$h|g" "$SITE/index.html"
 done
-
-# Mark the public copy: hide the gallery/footnotes buttons without 404 probes.
-sed -i '' 's|<body data-local-tools="true">|<body data-local-tools="false">|' "$SITE/index.html"
 
 # ---- publish --------------------------------------------------------------
 OUT="$("$PUB" "$SITE" --slug "$SLUG" --title "$TITLE" 2>&1)"

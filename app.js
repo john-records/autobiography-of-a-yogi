@@ -105,24 +105,11 @@
   })();
 
   // ---------- top-level render ----------
-  function hideMissingTools() {
-    // Public build: sync-herenow.sh marks the body data-local-tools="false",
-    // so the buttons are hidden without a 404-probing fetch (no button flash,
-    // and no dependence on the host answering unknown paths with 404).
-    const local = !document.body || document.body.dataset.localTools !== "false";
-    ["gallery-link", "footnotes-link"].forEach(function (id) {
-      const btn = document.getElementById(id);
-      if (!btn) return;
-      if (!local) { btn.classList.add("hidden"); return; }
-      const href = btn.getAttribute("href") || "";
-      fetch(href, { method: "HEAD", cache: "no-store" }).then(function (r) {
-        if (!r.ok && btn) btn.classList.add("hidden");
-      }).catch(function () { if (btn) btn.classList.add("hidden"); });
-    });
-  }
+  // The gallery and footnotes buttons were removed from the topbar on
+  // 2026-08-06; hideMissingTools() and the data-local-tools attribute existed
+  // only to hide them on the public build and went with them.
   function init() {
     restorePrefs();
-    hideMissingTools();
     buildToc();
     renderCover();
     bindEvents();
@@ -179,11 +166,20 @@
         <h1 class="cover-title">Autobiography<br/>of a Yogi</h1>
         <p class="cover-author">Paramahansa Yogananda</p>
         <div class="dec"></div>
-        <p class="cover-sub">An Annotated Public-Domain Edition &nbsp;·&nbsp; 48 Chapters</p>
+        <p class="cover-sub">An Annotated Public-Domain Edition with Audio &nbsp;·&nbsp; 48 Chapters</p>
+        <p class="cover-audio">Every chapter is narrated. Open one and press play in the bar
+           at the foot of the page — or hold Option and click any paragraph to hear
+           the reading start there.</p>
         <div class="cover-actions">
           <button class="start" id="start-reading">Begin Reading →</button>
           ${resume}
         </div>
+        <p class="cover-rights"><strong>No copyright is claimed.</strong> The 1946 first edition
+           entered the United States public domain in 1975, its copyright never renewed. The
+           annotations, the narration and this site are released under
+           <a href="https://creativecommons.org/publicdomain/zero/1.0/" rel="noopener noreferrer">CC0 1.0</a>
+           — copy, share, remix, republish or sell them, for any purpose, without permission
+           and without credit. Photographs come from Wikimedia Commons under their own licenses.</p>
       </section>`;
     const prefaceIdx = CHAPTERS.findIndex((c) => c.id === "Preface");
     $("#start-reading").onclick = () => renderChapter(prefaceIdx >= 0 ? prefaceIdx : 0, true);
@@ -223,6 +219,9 @@
 
     annotateBody($(".ch-body"));
     bindFootnotes($(".ch-body"));
+    // Narration last: it only toggles classes on the <p> elements above, so it
+    // must run after the annotation spans exist and must never rebuild them.
+    if (window.AOYAudio) window.AOYAudio.load(c.id, $(".ch-body"));
     updateTocHighlight();
     updatePosition();
 

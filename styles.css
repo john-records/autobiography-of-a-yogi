@@ -88,15 +88,31 @@ body {
 .cover .cover-author { font-size:26px; font-style:italic; color:var(--ink-soft); margin:0 0 22px; }
 .cover .cover-sub { font-family:var(--sans); font-size:14px; color:var(--ink-soft); letter-spacing:.5px; text-transform:uppercase; }
 .cover .dec { width:70px; height:1px; background:var(--accent); margin:22px auto; }
+/* The narration is the one thing on this page a reader can't guess at, so the
+   cover says where the player is and that Option-click exists. Sentence case
+   and soft ink on purpose: an invitation, not a banner. */
+.cover .cover-audio { font-family:var(--sans); font-size:14px; line-height:1.6;
+  color:var(--ink-soft); max-width:34em; margin:16px auto 0; }
 .cover .start { margin-top:26px; padding:12px 28px; font-family:var(--sans); font-size:15px;
   background:var(--accent); color:var(--paper); border:none; border-radius:30px; cursor:pointer; }
 .cover .start:hover { filter:brightness(1.06); }
+/* Rights, stated plainly on the face of the book rather than buried in a
+   README nobody reads. Small and quiet, but present on the first screen. */
+.cover .cover-rights { font-family:var(--sans); font-size:12.5px; line-height:1.65;
+  color:var(--ink-soft); opacity:.85; max-width:38em; margin:44px auto 0;
+  padding-top:18px; border-top:1px solid var(--line); }
+.cover .cover-rights a { color:var(--accent); }
 
 /* chapter */
 .ch-head { text-align:center; margin:20px 0 34px; }
 .ch-title { font-size:calc(34px * var(--fs)); font-weight:600; line-height:1.2; margin:0; }
 .ch-chapter { font-family:var(--sans); font-size:13px; color:var(--accent); text-transform:uppercase; letter-spacing:2px; margin-bottom:8px; }
 .ch-divider { width:60px; height:2px; background:var(--accent); margin:18px auto 0; border:none; }
+/* Inserted by audio.js, only on chapters that actually have narration. Sized
+   in px, not calc(... * var(--fs)): it is an instruction, not part of the
+   book, so it should not grow when the reader enlarges the text. */
+.ch-audio-hint { font-family:var(--sans); font-size:12.5px; line-height:1.6;
+  color:var(--ink-soft); opacity:.85; max-width:32em; margin:16px auto 0; }
 
 /* paragraphs */
 .ch-body p { font-size:calc(19px * var(--fs)); line-height:1.65; margin:0 0 1.25em; text-align:left; }
@@ -246,3 +262,37 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-soft); }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ---- narration ----------------------------------------------------------
+   The player floats above the footer so it stays reachable while reading.
+   .para-speaking must only ever change colour/background: the paragraph's
+   contents are annotation spans and footnote markers owned by other code. */
+.player { position:fixed; left:50%; transform:translateX(-50%); bottom:16px; z-index:80;
+  display:flex; align-items:center; gap:10px; max-width:min(680px, calc(100vw - 32px));
+  padding:8px 14px; background:var(--paper); color:var(--ink);
+  border:1px solid var(--line); border-radius:34px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.16); font-family:var(--sans); }
+.player.hidden { display:none; }
+/* The bar is fixed, so without this the last lines of a chapter sit underneath
+   it -- worst on a phone, where the bar is proportionally much taller. Reserve
+   the space only while the bar is actually up. */
+body.with-player .main { padding-bottom:78px; }
+.pl-btn { width:34px; height:34px; flex:0 0 auto; display:grid; place-items:center;
+  font-size:14px; background:var(--accent); color:var(--paper);
+  border:none; border-radius:50%; cursor:pointer; }
+.pl-btn:hover { filter:brightness(1.08); }
+.pl-small { width:28px; height:28px; font-size:13px;
+  background:transparent; color:var(--ink-soft); border:1px solid var(--line); }
+.pl-small.on { color:var(--accent); border-color:var(--accent); }
+.pl-time { font-size:12px; color:var(--ink-soft); font-variant-numeric:tabular-nums;
+  min-width:38px; text-align:center; }
+.pl-seek { flex:1 1 120px; min-width:80px; accent-color:var(--accent); }
+.pl-rate { font-family:var(--sans); font-size:12px; padding:3px 4px; cursor:pointer;
+  background:var(--paper); color:var(--ink); border:1px solid var(--line); border-radius:12px; }
+.para-speaking { background:var(--annotation-bg-overlay);
+  box-shadow:-10px 0 0 var(--annotation-bg-overlay), 10px 0 0 var(--annotation-bg-overlay);
+  border-radius:2px; transition:background 220ms ease; }
+@media (max-width: 680px) {
+  .player { gap:7px; padding:7px 10px; bottom:10px; }
+  .pl-rate, .pl-time { display:none; }
+}
