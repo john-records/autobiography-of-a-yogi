@@ -56,10 +56,20 @@ CANONICAL_BASE = "https://johnrecords.org/autobiography-of-a-yogi/"
 SITE_TITLE = "Autobiography of a Yogi"
 AUTHOR = "Paramahansa Yogananda"
 
-# Kept in step with index.html by hand. A mismatch is cosmetic (a stale cache
-# buster), never broken -- sync-herenow.sh rewrites every ?v= at deploy time
-# with the real content hash.
-ASSET_V = "14"
+# Read out of index.html, not hardcoded. index.html is the one page a human
+# edits, so it is the authority on the current cache buster; a constant here
+# would drift silently the moment someone bumped it there. Drift would only be
+# cosmetic -- sync-herenow.sh rewrites every ?v= at deploy time with the real
+# content hash -- but silent drift is worth not having.
+def _asset_version():
+    with open(os.path.join(ROOT, "index.html")) as fh:
+        m = re.search(r"app\.js\?v=([0-9a-zA-Z]+)", fh.read())
+    if not m:
+        raise SystemExit("build_static: no app.js?v= in index.html")
+    return m.group(1)
+
+
+ASSET_V = _asset_version()
 
 ASSETS_JS = ["data.js", "annotations.js", "footnote_overrides.js", "slugs.js",
              "shared.js", "app.js", "audio.js"]
