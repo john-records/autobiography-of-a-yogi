@@ -185,7 +185,7 @@
     if (chapterId !== from) return;             // the reader has taken over
     // HEAD, not GET: this only asks whether the chapter is narrated. The real
     // fetch happens in load() a moment later and comes from cache.
-    fetch("audio/" + encodeURIComponent(R.CHAPTERS[i].id) + ".json", { method: "HEAD" })
+    fetch(AOY.base() + "audio/" + encodeURIComponent(R.CHAPTERS[i].id) + ".json", { method: "HEAD" })
       .then(function (r) {
         if (!r.ok) return rollTo(i + 1, from);   // not narrated yet: step over it
         if (chapterId !== from) return;
@@ -214,7 +214,9 @@
     var el = $("#player");
     if (el) el.classList.add("hidden");
 
-    fetch("audio/" + encodeURIComponent(id) + ".json", { cache: "force-cache" })
+    // AOY.base(): a chapter page is served one directory below the site root,
+    // so a bare "audio/..." would resolve inside the chapter's own folder.
+    fetch(AOY.base() + "audio/" + encodeURIComponent(id) + ".json", { cache: "force-cache" })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (data) {
         // Chapter changed mid-fetch, or this one simply has no narration. The
@@ -257,7 +259,7 @@
             $("#pl-dur").textContent = fmt(audio.duration);
           });
         }
-        audio.src = "audio/" + encodeURIComponent(id) + ".mp3";
+        audio.src = AOY.base() + "audio/" + encodeURIComponent(id) + ".mp3";
         audio.playbackRate = rate;
         // Not noAudio() on failure: the file is plainly there, so a refused
         // resume means the browser wanted a fresh gesture. Leave the bar up

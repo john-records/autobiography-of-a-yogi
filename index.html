@@ -7,12 +7,345 @@
        footnote/annotation links are scheme-checked. frame-ancestors is NOT
        carried by a <meta> CSP in any browser, so framing protection must be
        enforced by the host via HTTP headers (X-Frame-Options: DENY). -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://commons.wikimedia.org https://upload.wikimedia.org data:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-src 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Crhz3M40Jf0P4/J31LzlWoDrVWStO59vEGbK8qNnSGk='; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://commons.wikimedia.org https://upload.wikimedia.org data:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-src 'none'" />
   <meta name="referrer" content="no-referrer" />
   <title>Autobiography of a Yogi — An Annotated Edition with Audio</title>
   <meta name="description" content="Read or listen to the public domain text of Paramahansa Yogananda's Autobiography of a Yogi, with narration of every chapter, annotations, footnotes, and linked references." />
   <meta property="og:title" content="Autobiography of a Yogi — An Annotated Edition with Audio" />
   <meta property="og:description" content="A beautiful, annotated public-domain reading edition with narration of every chapter and linked references." />
+  <!-- Canonical points at johnrecords.org from every host. The here.now and
+       GitHub Pages copies stay live and stay crawlable on purpose: a copy
+       blocked by robots.txt is never read, so its canonical is never seen and
+       the duplicate is never folded into the original. -->
+  <link rel="canonical" href="https://johnrecords.org/autobiography-of-a-yogi/" />
+  <meta property="og:url" content="https://johnrecords.org/autobiography-of-a-yogi/" />
+  <meta property="og:type" content="book" />
+  <!-- Written by scripts/build_static.py, which also adds this block's sha256
+       to the script-src above. Do not edit by hand. -->
+  <!-- BUILD:LD --><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "Autobiography of a Yogi",
+  "author": {
+    "@type": "Person",
+    "name": "Paramahansa Yogananda"
+  },
+  "url": "https://johnrecords.org/autobiography-of-a-yogi/",
+  "bookEdition": "Annotated public-domain edition with audio",
+  "bookFormat": "https://schema.org/EBook",
+  "inLanguage": "en",
+  "datePublished": "1946",
+  "isAccessibleForFree": true,
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "publisher": {
+    "@type": "Person",
+    "name": "John Records"
+  },
+  "hasPart": [
+    {
+      "@type": "Chapter",
+      "name": "Preface",
+      "position": 0,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/preface/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 1: My Parents and Early Life",
+      "position": 1,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/1-my-parents-and-early-life/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 2: Mother's Death and the Amulet",
+      "position": 2,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/2-mothers-death-and-the-amulet/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 3: The Saint with Two Bodies (Swami Pranabananda)",
+      "position": 3,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/3-the-saint-with-two-bodies-swami-pranabananda/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 4: My Interrupted Flight Toward the Himalaya",
+      "position": 4,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/4-my-interrupted-flight-toward-the-himalaya/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 5: A \"Perfume Saint\" Performs his Wonders",
+      "position": 5,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/5-a-perfume-saint-performs-his-wonders/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 6: The Tiger Swami",
+      "position": 6,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/6-the-tiger-swami/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 7: The Levitating Saint (Nagendra Nath Bhaduri)",
+      "position": 7,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/7-the-levitating-saint-nagendra-nath-bhaduri/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 8: India's Great Scientist and Inventor, Jagadis Chandra Bose",
+      "position": 8,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/8-indias-great-scientist-and-inventor-jagadis-chandra-bose/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 9: The Blissful Devotee and his Cosmic Romance (Master Mahasaya)",
+      "position": 9,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/9-the-blissful-devotee-and-his-cosmic-romance-master-mahasaya/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 10: I Meet my Master, Sri Yukteswar",
+      "position": 10,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/10-i-meet-my-master-sri-yukteswar/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 11: Two Penniless Boys in Brindaban",
+      "position": 11,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/11-two-penniless-boys-in-brindaban/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 12: Years in my Master's Hermitage",
+      "position": 12,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/12-years-in-my-masters-hermitage/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 13: The Sleepless Saint (Ram Gopal Muzumdar)",
+      "position": 13,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/13-the-sleepless-saint-ram-gopal-muzumdar/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 14: An Experience in Cosmic Consciousness",
+      "position": 14,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/14-an-experience-in-cosmic-consciousness/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 15: The Cauliflower Robbery",
+      "position": 15,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/15-the-cauliflower-robbery/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 16: Outwitting the Stars",
+      "position": 16,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/16-outwitting-the-stars/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 17: Sasi and the Three Sapphires",
+      "position": 17,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/17-sasi-and-the-three-sapphires/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 18: A Mohammedan Wonder-Worker (Afzal Khan)",
+      "position": 18,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/18-a-mohammedan-wonder-worker-afzal-khan/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 19: My Guru Appears Simultaneously in Calcutta and Serampore",
+      "position": 19,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/19-my-guru-appears-simultaneously-in-calcutta-and-serampore/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 20: We Do Not Visit Kashmir",
+      "position": 20,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/20-we-do-not-visit-kashmir/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 21: We Visit Kashmir",
+      "position": 21,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/21-we-visit-kashmir/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 22: The Heart of a Stone Image",
+      "position": 22,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/22-the-heart-of-a-stone-image/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 23: My University Degree",
+      "position": 23,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/23-my-university-degree/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 24: I Become a Monk of the Swami Order",
+      "position": 24,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/24-i-become-a-monk-of-the-swami-order/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 25: Brother Ananta and Sister Nalini",
+      "position": 25,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/25-brother-ananta-and-sister-nalini/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 26: The Science of Kriya Yoga",
+      "position": 26,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/26-the-science-of-kriya-yoga/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 27: Founding of a Yoga School at Ranchi",
+      "position": 27,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/27-founding-of-a-yoga-school-at-ranchi/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 28: Kashi, Reborn and Rediscovered",
+      "position": 28,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/28-kashi-reborn-and-rediscovered/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 29: Rabindranath Tagore and I Compare Schools",
+      "position": 29,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/29-rabindranath-tagore-and-i-compare-schools/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 30: The Law of Miracles",
+      "position": 30,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/30-the-law-of-miracles/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 31: An Interview with the Sacred Mother (Kashi Moni Lahiri)",
+      "position": 31,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/31-an-interview-with-the-sacred-mother-kashi-moni-lahiri/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 32: Rama is Raised from the Dead",
+      "position": 32,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/32-rama-is-raised-from-the-dead/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 33: Babaji, the Yogi of Modern India",
+      "position": 33,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/33-babaji-the-yogi-of-modern-india/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 34: Materializing a Palace in the Himalayas",
+      "position": 34,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/34-materializing-a-palace-in-the-himalayas/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 35: The Christlike Life of Lahiri Mahasaya",
+      "position": 35,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/35-the-christlike-life-of-lahiri-mahasaya/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 36: Babaji's Interest in the West",
+      "position": 36,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/36-babajis-interest-in-the-west/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 37: I Go to America",
+      "position": 37,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/37-i-go-to-america/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 38: Luther Burbank--An American Saint",
+      "position": 38,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/38-luther-burbank-an-american-saint/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 39: Therese Neumann, the Catholic Stigmatist of Bavaria",
+      "position": 39,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/39-therese-neumann-the-catholic-stigmatist-of-bavaria/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 40: I Return to India",
+      "position": 40,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/40-i-return-to-india/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 41: An Idyll in South India",
+      "position": 41,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/41-an-idyll-in-south-india/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 42: Last Days with my Guru",
+      "position": 42,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/42-last-days-with-my-guru/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 43: The Resurrection of Sri Yukteswar",
+      "position": 43,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/43-the-resurrection-of-sri-yukteswar/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 44: With Mahatma Gandhi at Wardha",
+      "position": 44,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/44-with-mahatma-gandhi-at-wardha/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 45: The Bengali \"Joy-Permeated Mother\" (Ananda Moyi Ma)",
+      "position": 45,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/45-the-bengali-joy-permeated-mother-ananda-moyi-ma/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 46: The Woman Yogi who Never Eats (Giri Bala)",
+      "position": 46,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/46-the-woman-yogi-who-never-eats-giri-bala/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 47: I Return to the West",
+      "position": 47,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/47-i-return-to-the-west/"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Chapter 48: At Encinitas in California",
+      "position": 48,
+      "url": "https://johnrecords.org/autobiography-of-a-yogi/48-at-encinitas-in-california/"
+    }
+  ],
+  "associatedMedia": {
+    "@type": "AudioObject",
+    "name": "Autobiography of a Yogi, read aloud",
+    "duration": "PT17H16M6S",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "creditText": "Narration synthesised with Kokoro-82M"
+  }
+}</script><!-- /BUILD:LD -->
   <!-- Saved to a home screen this becomes an app: the OM in the book's own
        palette, opening without browser chrome. scripts/make_icon.py draws the
        three PNGs. iOS reads apple-touch-icon and the apple- meta tags and
@@ -66,7 +399,10 @@
   </header>
 
   <div class="layout">
-    <aside id="toc" class="toc" aria-label="Table of contents"></aside>
+    <!-- The contents list is pre-rendered here by scripts/build_static.py so
+         the crawl has an entry point that does not depend on JavaScript.
+         app.js rebuilds it on load with the same hrefs, plus the resume link. -->
+    <aside id="toc" class="toc" aria-label="Table of contents"><!-- BUILD:TOC --><div class="toc-group">Book</div><ul><li class="toc-item"><a data-idx="-1" href="">📖 Cover</a></li></ul><div class='toc-group'>Front Matter</div><ul><li class="toc-item"><a class="" data-idx="0" href="preface/">Preface</a></li></ul><div class='toc-group'>Chapters</div><ul><li class="toc-item"><a class="" data-idx="1" href="1-my-parents-and-early-life/">1. My Parents and Early Life</a></li><li class="toc-item"><a class="" data-idx="2" href="2-mothers-death-and-the-amulet/">2. Mother&#x27;s Death and the Amulet</a></li><li class="toc-item"><a class="" data-idx="3" href="3-the-saint-with-two-bodies-swami-pranabananda/">3. The Saint with Two Bodies (Swami Pranabananda)</a></li><li class="toc-item"><a class="" data-idx="4" href="4-my-interrupted-flight-toward-the-himalaya/">4. My Interrupted Flight Toward the Himalaya</a></li><li class="toc-item"><a class="" data-idx="5" href="5-a-perfume-saint-performs-his-wonders/">5. A &quot;Perfume Saint&quot; Performs his Wonders</a></li><li class="toc-item"><a class="" data-idx="6" href="6-the-tiger-swami/">6. The Tiger Swami</a></li><li class="toc-item"><a class="" data-idx="7" href="7-the-levitating-saint-nagendra-nath-bhaduri/">7. The Levitating Saint (Nagendra Nath Bhaduri)</a></li><li class="toc-item"><a class="" data-idx="8" href="8-indias-great-scientist-and-inventor-jagadis-chandra-bose/">8. India&#x27;s Great Scientist and Inventor, Jagadis Chandra Bose</a></li><li class="toc-item"><a class="" data-idx="9" href="9-the-blissful-devotee-and-his-cosmic-romance-master-mahasaya/">9. The Blissful Devotee and his Cosmic Romance (Master Mahasaya)</a></li><li class="toc-item"><a class="" data-idx="10" href="10-i-meet-my-master-sri-yukteswar/">10. I Meet my Master, Sri Yukteswar</a></li><li class="toc-item"><a class="" data-idx="11" href="11-two-penniless-boys-in-brindaban/">11. Two Penniless Boys in Brindaban</a></li><li class="toc-item"><a class="" data-idx="12" href="12-years-in-my-masters-hermitage/">12. Years in my Master&#x27;s Hermitage</a></li><li class="toc-item"><a class="" data-idx="13" href="13-the-sleepless-saint-ram-gopal-muzumdar/">13. The Sleepless Saint (Ram Gopal Muzumdar)</a></li><li class="toc-item"><a class="" data-idx="14" href="14-an-experience-in-cosmic-consciousness/">14. An Experience in Cosmic Consciousness</a></li><li class="toc-item"><a class="" data-idx="15" href="15-the-cauliflower-robbery/">15. The Cauliflower Robbery</a></li><li class="toc-item"><a class="" data-idx="16" href="16-outwitting-the-stars/">16. Outwitting the Stars</a></li><li class="toc-item"><a class="" data-idx="17" href="17-sasi-and-the-three-sapphires/">17. Sasi and the Three Sapphires</a></li><li class="toc-item"><a class="" data-idx="18" href="18-a-mohammedan-wonder-worker-afzal-khan/">18. A Mohammedan Wonder-Worker (Afzal Khan)</a></li><li class="toc-item"><a class="" data-idx="19" href="19-my-guru-appears-simultaneously-in-calcutta-and-serampore/">19. My Guru Appears Simultaneously in Calcutta and Serampore</a></li><li class="toc-item"><a class="" data-idx="20" href="20-we-do-not-visit-kashmir/">20. We Do Not Visit Kashmir</a></li><li class="toc-item"><a class="" data-idx="21" href="21-we-visit-kashmir/">21. We Visit Kashmir</a></li><li class="toc-item"><a class="" data-idx="22" href="22-the-heart-of-a-stone-image/">22. The Heart of a Stone Image</a></li><li class="toc-item"><a class="" data-idx="23" href="23-my-university-degree/">23. My University Degree</a></li><li class="toc-item"><a class="" data-idx="24" href="24-i-become-a-monk-of-the-swami-order/">24. I Become a Monk of the Swami Order</a></li><li class="toc-item"><a class="" data-idx="25" href="25-brother-ananta-and-sister-nalini/">25. Brother Ananta and Sister Nalini</a></li><li class="toc-item"><a class="" data-idx="26" href="26-the-science-of-kriya-yoga/">26. The Science of Kriya Yoga</a></li><li class="toc-item"><a class="" data-idx="27" href="27-founding-of-a-yoga-school-at-ranchi/">27. Founding of a Yoga School at Ranchi</a></li><li class="toc-item"><a class="" data-idx="28" href="28-kashi-reborn-and-rediscovered/">28. Kashi, Reborn and Rediscovered</a></li><li class="toc-item"><a class="" data-idx="29" href="29-rabindranath-tagore-and-i-compare-schools/">29. Rabindranath Tagore and I Compare Schools</a></li><li class="toc-item"><a class="" data-idx="30" href="30-the-law-of-miracles/">30. The Law of Miracles</a></li><li class="toc-item"><a class="" data-idx="31" href="31-an-interview-with-the-sacred-mother-kashi-moni-lahiri/">31. An Interview with the Sacred Mother (Kashi Moni Lahiri)</a></li><li class="toc-item"><a class="" data-idx="32" href="32-rama-is-raised-from-the-dead/">32. Rama is Raised from the Dead</a></li><li class="toc-item"><a class="" data-idx="33" href="33-babaji-the-yogi-of-modern-india/">33. Babaji, the Yogi of Modern India</a></li><li class="toc-item"><a class="" data-idx="34" href="34-materializing-a-palace-in-the-himalayas/">34. Materializing a Palace in the Himalayas</a></li><li class="toc-item"><a class="" data-idx="35" href="35-the-christlike-life-of-lahiri-mahasaya/">35. The Christlike Life of Lahiri Mahasaya</a></li><li class="toc-item"><a class="" data-idx="36" href="36-babajis-interest-in-the-west/">36. Babaji&#x27;s Interest in the West</a></li><li class="toc-item"><a class="" data-idx="37" href="37-i-go-to-america/">37. I Go to America</a></li><li class="toc-item"><a class="" data-idx="38" href="38-luther-burbank-an-american-saint/">38. Luther Burbank--An American Saint</a></li><li class="toc-item"><a class="" data-idx="39" href="39-therese-neumann-the-catholic-stigmatist-of-bavaria/">39. Therese Neumann, the Catholic Stigmatist of Bavaria</a></li><li class="toc-item"><a class="" data-idx="40" href="40-i-return-to-india/">40. I Return to India</a></li><li class="toc-item"><a class="" data-idx="41" href="41-an-idyll-in-south-india/">41. An Idyll in South India</a></li><li class="toc-item"><a class="" data-idx="42" href="42-last-days-with-my-guru/">42. Last Days with my Guru</a></li><li class="toc-item"><a class="" data-idx="43" href="43-the-resurrection-of-sri-yukteswar/">43. The Resurrection of Sri Yukteswar</a></li><li class="toc-item"><a class="" data-idx="44" href="44-with-mahatma-gandhi-at-wardha/">44. With Mahatma Gandhi at Wardha</a></li><li class="toc-item"><a class="" data-idx="45" href="45-the-bengali-joy-permeated-mother-ananda-moyi-ma/">45. The Bengali &quot;Joy-Permeated Mother&quot; (Ananda Moyi Ma)</a></li><li class="toc-item"><a class="" data-idx="46" href="46-the-woman-yogi-who-never-eats-giri-bala/">46. The Woman Yogi who Never Eats (Giri Bala)</a></li><li class="toc-item"><a class="" data-idx="47" href="47-i-return-to-the-west/">47. I Return to the West</a></li><li class="toc-item"><a class="" data-idx="48" href="48-at-encinitas-in-california/">48. At Encinitas in California</a></li></ul><!-- /BUILD:TOC --></aside>
 
     <main id="main" class="main"></main>
 
@@ -86,6 +422,8 @@
   <script src="data.js?v=14"></script>
   <script src="annotations.js?v=14"></script>
   <script src="footnote_overrides.js?v=14"></script>
+  <!-- id -> URL slug, generated. Must load before app.js builds the TOC. -->
+  <script src="slugs.js?v=14"></script>
   <script src="shared.js?v=14"></script>
   <script src="app.js?v=14"></script>
   <script src="audio.js?v=14"></script>

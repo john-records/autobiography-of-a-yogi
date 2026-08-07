@@ -104,6 +104,51 @@
     return Array.from(byKey.values());
   })();
 
+  // ---------- routing ----------
+  // Every chapter has a real URL. scripts/build_static.py writes a static page
+  // per chapter and the matching id -> slug map into slugs.js; the reader uses
+  // that same map so the hrefs it renders and the directories on disk cannot
+  // drift apart. Navigation stays client-side (no reload, no re-parse of the
+  // 1 MB data.js) and pushState keeps the address bar honest, so what the
+  // reader sees is always a URL they can copy, bookmark or send to someone.
+  const SLUGS = window.AOY_SLUGS || {};
+  const BASE = AOY.base();
+
+  function chapterUrl(c) {
+    const slug = c && SLUGS[c.id];
+    return slug ? BASE + slug + "/" : null;
+  }
+  function coverUrl() { return BASE || "./"; }
+
+  function pageTitle(c) {
+    if (!c) return "Autobiography of a Yogi — An Annotated Edition with Audio";
+    const label = chapterLabel(c);
+    return (label === "Preface" ? "Preface" : label + ": " + titleClean(c)) +
+      " — Autobiography of a Yogi";
+  }
+
+  // Skips the push when the URL is already the one showing, which is exactly
+  // the case on first load of a static chapter page — so arriving at
+  // /1-my-parents-and-early-life/ does not stack a duplicate history entry.
+  function pushRoute(url, title) {
+    if (!url) return;
+    try {
+      const target = new URL(url, location.href);
+      document.title = title;
+      if (target.pathname !== location.pathname) history.pushState({}, "", target.href);
+    } catch (e) {}
+  }
+
+  function indexOfPath() {
+    // Which chapter does the current address correspond to? Used on popstate,
+    // where the browser has changed the URL and the reader must catch up.
+    const path = location.pathname.replace(/\/+$/, "");
+    for (const id of Object.keys(SLUGS)) {
+      if (path.endsWith("/" + SLUGS[id])) return CHAPTERS.findIndex((c) => c.id === id);
+    }
+    return -1;
+  }
+
   // ---------- top-level render ----------
   // The gallery and footnotes buttons were removed from the topbar on
   // 2026-08-06; hideMissingTools() and the data-local-tools attribute existed
@@ -111,7 +156,14 @@
   function init() {
     restorePrefs();
     buildToc();
-    renderCover();
+    // A generated chapter page names its own chapter in a <meta> tag (an
+    // inline script would be blocked by the CSP). Hydrate that chapter rather
+    // than the cover, so the pre-rendered HTML the crawler saw and the DOM the
+    // reader ends up with are the same chapter.
+    const startMeta = document.querySelector('meta[name="aoy-chapter"]');
+    const startId = startMeta && startMeta.getAttribute("content");
+    const startIdx = startId ? CHAPTERS.findIndex((c) => c.id === startId) : -1;
+    if (startIdx >= 0) renderChapter(startIdx, false); else renderCover();
     bindEvents();
   }
 
@@ -119,19 +171,25 @@
     const toc = $("#toc");
     const chapters = CHAPTERS.filter((c) => /^Chapter_/.test(c.id));
     const preface = CHAPTERS.find((c) => c.id === "Preface");
+    // Real hrefs, not "#". This list is the crawl graph — it appears on every
+    // generated page, so a crawler that runs no JavaScript still reaches all
+    // 49 chapters from any one of them — and it is what makes ⌘-click and
+    // "open in new tab" work like they do on any other site.
+    const href = (c) => escAttr(chapterUrl(c) || "#toc-nav");
     let html = '<div class="toc-group">Book</div><ul>';
-    html += '<li class="toc-item"><a data-idx="-1" href="#toc-nav">📖 Cover</a></li>';
+    html += `<li class="toc-item"><a data-idx="-1" href="${escAttr(coverUrl())}">📖 Cover</a></li>`;
     const __prog = getProgress();
     if (__prog && __prog.chapterIndex >= 0 && __prog.chapterIndex < CHAPTERS.length) {
-      html += '<li class="toc-item resume"><a href="#toc-nav" data-action="resume">↻ ' + esc(CHAPTERS[__prog.chapterIndex].title) + '</a></li>';
+      const rc = CHAPTERS[__prog.chapterIndex];
+      html += `<li class="toc-item resume"><a href="${href(rc)}" data-action="resume">↻ ` + esc(rc.title) + '</a></li>';
     }
     html += "</ul><div class='toc-group'>Front Matter</div><ul>";
-    if (preface) html += `<li class="toc-item"><a data-idx="${CHAPTERS.indexOf(preface)}" href="#toc-nav">Preface</a></li>`;
+    if (preface) html += `<li class="toc-item"><a data-idx="${CHAPTERS.indexOf(preface)}" href="${href(preface)}">Preface</a></li>`;
     html += "</ul><div class='toc-group'>Chapters</div><ul>";
     chapters.forEach((c) => {
       const idx = CHAPTERS.indexOf(c);
       const num = c.title.match(/Chapter\s+(\d+)/);
-      html += `<li class="toc-item"><a data-idx="${idx}" href="#toc-nav">${num ? num[1] : ""}. ${esc(titleClean(c))}</a></li>`;
+      html += `<li class="toc-item"><a data-idx="${idx}" href="${href(c)}">${num ? num[1] : ""}. ${esc(titleClean(c))}</a></li>`;
     });
     html += "</ul>";
     toc.innerHTML = html;
@@ -179,8 +237,10 @@
            annotations, the narration and this site are released under
            <a href="https://creativecommons.org/publicdomain/zero/1.0/" rel="noopener noreferrer">CC0 1.0</a>
            — copy, share, remix, republish or sell them, for any purpose, without permission
-           and without credit. Photographs come from Wikimedia Commons under their own licenses.</p>
+           and without credit. Photographs come from Wikimedia Commons under their own licenses.
+           <a href="${escAttr(BASE + "colophon/")}">How this edition was made →</a></p>
       </section>`;
+    pushRoute(coverUrl(), pageTitle(null));
     const prefaceIdx = CHAPTERS.findIndex((c) => c.id === "Preface");
     $("#start-reading").onclick = () => renderChapter(prefaceIdx >= 0 ? prefaceIdx : 0, true);
     const resumeBtn = $("#resume-reading");
@@ -207,15 +267,21 @@
       .map((b) => `<p>${sanitizeHtml(b.html)}</p>`)
       .join("");
 
+    // h1, not h2: on a chapter page the chapter title is the page's heading,
+    // and the static page pre-renders it as an h1. The two must match, or a
+    // crawler that executes JavaScript sees a different document from one that
+    // does not.
     main.innerHTML = `
       <article class="ch-body" data-idx="${idx}">
         <header class="ch-head">
           <div class="ch-chapter">${chapterLabel(c)}</div>
-          <h2 class="ch-title">${esc(titleClean(c))}</h2>
+          <h1 class="ch-title">${esc(titleClean(c))}</h1>
           <hr class="ch-divider"/>
         </header>
         ${bodyHtml}
       </article>`;
+
+    pushRoute(chapterUrl(c), pageTitle(c));
 
     annotateBody($(".ch-body"));
     bindFootnotes($(".ch-body"));
@@ -387,6 +453,9 @@
     $("#toc").addEventListener("click", (e) => {
       const a = e.target.closest("a[data-idx], a[data-action]");
       if (!a) return;
+      // These are real links now. A modified click means the reader asked the
+      // browser for a new tab or window, so get out of the way and let it.
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
       e.preventDefault();
       if (a.dataset.action === "resume") {
         resumeReading();
@@ -459,6 +528,14 @@
 
     // scroll progress
     window.addEventListener("scroll", updatePosition, { passive: true });
+
+    // Back and forward. pushState navigation without this leaves the browser
+    // buttons changing the address bar while the page stays put, which reads
+    // as the site being broken.
+    window.addEventListener("popstate", () => {
+      const idx = indexOfPath();
+      if (idx >= 0) renderChapter(idx, true); else renderCover();
+    });
   }
 
   function updatePosition() {

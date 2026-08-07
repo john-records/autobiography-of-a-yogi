@@ -23,6 +23,28 @@
   }
 
   // ---- URL helpers ----
+  // Where the site root sits relative to the page being viewed. index.html is
+  // the root and gets ""; a generated chapter page lives one directory down
+  // and declares <meta name="aoy-base" content="../">. Everything that builds
+  // a same-origin URL -- assets, narration fetches, TOC hrefs -- goes through
+  // this, because the reader is served from three hosts at three different
+  // path depths and a root-relative "/audio/..." is only correct on one.
+  //
+  // A meta tag rather than an inline script: index.html's CSP is
+  // script-src 'self' with no 'unsafe-inline', so a bootstrap <script> block
+  // would simply not run. A <base href> is out for the same reason
+  // (base-uri 'none'), and would rewrite every relative URL on the page, not
+  // just ours.
+  var _base = null;
+  function base() {
+    if (_base === null) {
+      var m = (typeof document !== "undefined") &&
+        document.querySelector('meta[name="aoy-base"]');
+      _base = (m && m.getAttribute("content")) || "";
+    }
+    return _base;
+  }
+
   function isHttpUrl(u) {
     try {
       var p = new URL(String(u)).protocol;
@@ -173,6 +195,7 @@
     esc: esc,
     escAttr: escAttr,
     regEscape: regEscape,
+    base: base,
     isHttpUrl: isHttpUrl,
     hostOf: hostOf,
     imgUrl: imgUrl,

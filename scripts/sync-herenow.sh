@@ -34,7 +34,32 @@ fi
 # ---- stage the deploy set --------------------------------------------------
 SITE=$(mktemp -d)
 trap 'rm -rf "$SITE"' EXIT
-cp index.html styles.css app.js audio.js data.js annotations.js footnote_overrides.js shared.js "$SITE"/
+# The per-chapter pages are regenerated here rather than trusted from the
+# working tree: a deploy that ships a stale slugs.js next to fresh data.js
+# gives the reader links to directories that do not exist.
+./.venv-audio/bin/python scripts/build_static.py
+
+cp index.html styles.css app.js audio.js data.js annotations.js footnote_overrides.js shared.js slugs.js "$SITE"/
+cp sitemap.xml robots.txt "$SITE"/
+
+# One directory per chapter, plus the colophon: the real URLs. Each holds a
+# single index.html; the assets stay at the root and are reached through the
+# aoy-base meta tag.
+while read -r d; do
+  mkdir -p "$SITE/$d" && cp "$d/index.html" "$SITE/$d/"
+done < <(./.venv-audio/bin/python -c "
+import json, sys
+sys.path.insert(0, 'scripts')
+import build_static as b
+cs = b.load_chapters()
+for c in cs: print(b.slugify(c))
+print('colophon')
+")
+
+# Timed text for the narration. Not used by the player -- browsers show no
+# captions on a bare <audio> -- but it is what the schema.org transcript link
+# points at, and what a podcast host or the Internet Archive will want.
+mkdir -p "$SITE/transcripts" && cp transcripts/*.vtt "$SITE/transcripts"/
 # LICENSE ships too, so the CC0 dedication the cover points at has a real
 # address on the live site and not only in the repo.
 cp LICENSE "$SITE"/
@@ -58,9 +83,12 @@ echo "[sync] narration: $(ls "$SITE/audio"/*.mp3 2>/dev/null | wc -l | tr -d ' '
 
 # Content-hash cache busters: rewrite ?v= for every asset so a changed file is
 # never served stale and returning readers always get the new build.
-for f in shared.js annotations.js footnote_overrides.js data.js app.js audio.js styles.css; do
+# Every generated page references the same assets, so all of them get rewritten,
+# not just index.html.
+for f in shared.js annotations.js footnote_overrides.js data.js app.js audio.js slugs.js styles.css; do
   h="$(shasum -a 256 "$SITE/$f" | cut -c1-10)"
-  sed -i '' -E "s|($f)\?v=[0-9a-zA-Z]+|\1?v=$h|g" "$SITE/index.html"
+  find "$SITE" -name '*.html' -exec \
+    sed -i '' -E "s|($f)\?v=[0-9a-zA-Z]+|\1?v=$h|g" {} +
 done
 
 # ---- publish --------------------------------------------------------------
