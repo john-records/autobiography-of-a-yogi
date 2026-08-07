@@ -13,11 +13,24 @@
   <meta name="description" content="Read or listen to the public domain text of Paramahansa Yogananda's Autobiography of a Yogi, with narration of every chapter, annotations, footnotes, and linked references." />
   <meta property="og:title" content="Autobiography of a Yogi — An Annotated Edition with Audio" />
   <meta property="og:description" content="A beautiful, annotated public-domain reading edition with narration of every chapter and linked references." />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%239a6b3f'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='40' fill='%23fdfbf5' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E" />
+  <!-- Saved to a home screen this becomes an app: the OM in the book's own
+       palette, opening without browser chrome. scripts/make_icon.py draws the
+       three PNGs. iOS reads apple-touch-icon and the apple- meta tags and
+       ignores the manifest; Android reads the manifest and ignores those. Both
+       sets are needed, and the sizes must stay in step with the files on disk. -->
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Yogi" />
+  <meta name="theme-color" content="#f6f1e7" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#171410" media="(prefers-color-scheme: dark)" />
+  <meta property="og:image" content="icons/icon-512.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=13" />
+  <link rel="stylesheet" href="styles.css?v=14" />
 </head>
 <body>
   <div id="progress"><div id="progress-bar"></div></div>
@@ -70,11 +83,11 @@
 
   <div id="toc-backdrop" class="toc-backdrop hidden"></div>
 
-  <script src="data.js?v=13"></script>
-  <script src="annotations.js?v=13"></script>
-  <script src="footnote_overrides.js?v=13"></script>
-  <script src="shared.js?v=13"></script>
-  <script src="app.js?v=13"></script>
-  <script src="audio.js?v=13"></script>
+  <script src="data.js?v=14"></script>
+  <script src="annotations.js?v=14"></script>
+  <script src="footnote_overrides.js?v=14"></script>
+  <script src="shared.js?v=14"></script>
+  <script src="app.js?v=14"></script>
+  <script src="audio.js?v=14"></script>
 </body>
 </html>

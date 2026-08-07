@@ -39,6 +39,11 @@ cp index.html styles.css app.js audio.js data.js annotations.js footnote_overrid
 # address on the live site and not only in the repo.
 cp LICENSE "$SITE"/
 
+# The home-screen identity. Without these a site saved to a phone gets a
+# screenshot of the page as its tile and the URL as its name.
+cp manifest.webmanifest "$SITE"/
+mkdir -p "$SITE/icons" && cp icons/*.png "$SITE/icons"/
+
 # The narration: one mp3 and one timings JSON per chapter. Chapters not yet
 # rendered are simply absent, and the player hides itself for those. The
 # review-page scratch renders (smooth_*.mp3, *_options.mp3) are never copied.
