@@ -27,6 +27,7 @@
   var active = -1;       // index of the highlighted paragraph
   var chapterId = null;
   var follow = true;     // scroll to keep the spoken paragraph in view
+  var advancing = false; // rolling on into the next chapter, so play on arrival
 
   // Remembered across chapters, because someone who wants 1.25x wants it for
   // the whole book, not for one chapter.
@@ -129,9 +130,11 @@
     var el = document.createElement("div");
     el.className = "ch-audio-hint";
     el.textContent = touch
-      ? "Narrated · press play in the bar at the foot of the screen. The text follows along as it reads."
+      ? "Narrated · press play in the bar at the foot of the screen. The text follows along, "
+        + "and the reading carries on into the next chapter."
       : "Narrated · press play in the bar at the foot of the page, or the space bar. "
-        + "Hold Option and click any paragraph to start reading from there. The text follows along.";
+        + "Hold Option and click any paragraph to start reading from there. The text follows "
+        + "along, and the reading carries on into the next chapter.";
     head.appendChild(el);
   }
 
@@ -152,6 +155,49 @@
     document.body.classList.remove("with-player");
   }
 
+  /* ---- rolling on into the next chapter -----------------------------------
+   * Someone listening in the car cannot reach over and pick the next chapter,
+   * so the end of one is the start of the next. The reader is driven through
+   * Reader.renderChapter(), the same call the table of contents makes, so the
+   * page arrives properly rendered -- annotations, footnotes and all -- and the
+   * highlighting simply carries on in the new text.
+   *
+   * Nothing here assumes every chapter has audio: an unrendered one is stepped
+   * over rather than stopping the run, which keeps this working during a
+   * partial render. Reaching the end of the book just stops. */
+
+  function rollOn() {
+    var R = window.Reader;
+    if (!R || !R.CHAPTERS || !chapterId) return;
+    for (var i = 0; i < R.CHAPTERS.length; i++) {
+      if (R.CHAPTERS[i].id === chapterId) { rollTo(i + 1, chapterId); return; }
+    }
+  }
+
+  /* `from` is the chapter this run started at. The probe below is asynchronous,
+   * and in that window the reader may have picked something else from the
+   * contents -- in which case they have overruled the roll-on and must not be
+   * yanked to a chapter they didn't choose. load() moves chapterId, so a
+   * changed chapterId is exactly that signal. */
+  function rollTo(i, from) {
+    var R = window.Reader;
+    if (!R || i >= R.CHAPTERS.length) return;   // end of the book
+    if (chapterId !== from) return;             // the reader has taken over
+    // HEAD, not GET: this only asks whether the chapter is narrated. The real
+    // fetch happens in load() a moment later and comes from cache.
+    fetch("audio/" + encodeURIComponent(R.CHAPTERS[i].id) + ".json", { method: "HEAD" })
+      .then(function (r) {
+        if (!r.ok) return rollTo(i + 1, from);   // not narrated yet: step over it
+        if (chapterId !== from) return;
+        advancing = true;
+        try { R.renderChapter(i, true); } finally { advancing = false; }
+      })
+      // A fetch that rejects is the network failing, not a chapter that is
+      // missing. Walking the rest of the book asking the same dead connection
+      // 40 more times helps nobody, so stop and leave the reader where they are.
+      .catch(function () {});
+  }
+
   /* ---- called by app.js after each chapter renders ------------------------ */
 
   function load(id, article) {
@@ -159,8 +205,11 @@
     marks = null; paras = []; active = -1;
     // Someone listening who jumps to another chapter means "read me that one",
     // not "stop reading". Switching the src always pauses the element, so carry
-    // the intention across by hand.
-    var wasPlaying = !!audio && !audio.paused;
+    // the intention across by hand. A chapter that has just ended is paused too,
+    // and there `advancing` is what carries it. Read and clear that here, before
+    // any early return below can strand it as true.
+    var wasPlaying = (!!audio && !audio.paused) || advancing;
+    advancing = false;
     if (audio) { audio.pause(); audio.removeAttribute("src"); audio.load(); }
     var el = $("#player");
     if (el) el.classList.add("hidden");
@@ -202,7 +251,7 @@
           audio.addEventListener("timeupdate", tick);
           audio.addEventListener("play", function () { $("#pl-play").textContent = "❚❚"; });
           audio.addEventListener("pause", function () { $("#pl-play").textContent = "▶"; });
-          audio.addEventListener("ended", function () { highlight(-1); });
+          audio.addEventListener("ended", function () { highlight(-1); rollOn(); });
           audio.addEventListener("error", noAudio);
           audio.addEventListener("loadedmetadata", function () {
             $("#pl-dur").textContent = fmt(audio.duration);
