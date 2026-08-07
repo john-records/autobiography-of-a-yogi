@@ -60,8 +60,16 @@ test*.js
 .venv-audio/
 clips/
 review.html
-audio/
 recordings/
+
+# The narration ships in the repo so GitHub Pages serves the same narrated
+# edition as here.now. Only the finished per-chapter renders -- the scratch
+# clips cut while tuning the voice (smooth_*, *_options, dashfix_*) stay local.
+audio/*
+!audio/Preface.mp3
+!audio/Preface.json
+!audio/Chapter_*.mp3
+!audio/Chapter_*.json
 verdicts.json
 proposals.*
 .review-cert/
