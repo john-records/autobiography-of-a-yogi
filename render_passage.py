@@ -276,6 +276,80 @@ def decap(text):
                   lambda m: m.group(0) if ROMAN.match(m.group(0)) else m.group(0).title(),
                   text)
 
+MARKED = re.compile(r"\[[^\]\n]*\]\(/[^/\n]*/\)")
+
+def load_phrases(path):
+    """Context rules for words whose pronunciation depends on the sentence.
+
+        "phrases": {
+          "my beloved guru": {"word": "beloved", "ipa": "bɪlˈʌvɪd"},
+          "the blessed Lord": {"word": "blessed", "ipa": "blˈɛsɪd"}
+        }
+
+    The term list can't express these: it maps one word to one IPA for the whole
+    book, and this book needs "beloved" three syllables in "my beloved guru" and
+    two in "beloved by all his companions". misaki decides from the POS tag, and
+    for beloved/blessed/learned/aged/bow/lead the tagger is not reliable enough
+    -- it tags an attributive adjective VBN about a third of the time here.
+    Nothing at the tag level fixes that; only the surrounding words can.
+
+    A phrase matches literally (case-insensitively, with any run of whitespace
+    matching any other) and either replaces the whole span with an authored
+    string or -- the usual form -- pins just the named word inside it.
+
+    Ported from the webbook skill's kokoro-render.py on 2026-08-15 so the two
+    renderers can express the same fixes; run homographs.py to find them.
+    """
+    if not os.path.exists(path):
+        return {}
+    d = json.load(open(path))
+    return d.get("phrases", {}) if isinstance(d, dict) else {}
+
+def build_phrase_matcher(phrases):
+    """Same shape as build_matcher, over phrases. Longest first for the same
+    reason, and whitespace in a key matches any whitespace in the text."""
+    keys = sorted(phrases, key=len, reverse=True)
+    if not keys:
+        return None, {}
+    alt = "|".join(r"\s+".join(re.escape(w) for w in k.split()) for k in keys)
+    return re.compile(r"\b(?:" + alt + r")\b", re.I), {
+        " ".join(k.split()).lower(): phrases[k] for k in keys}
+
+def apply_phrases(text, pat, spec_of, hits=None):
+    """Apply the context rules. Must run BEFORE apply_lexicon -- a phrase is the
+    more specific statement, and once it has emitted its markup the term pass
+    leaves that span alone."""
+    if not pat:
+        return text
+    def sub(m):
+        span = m.group(0)
+        spec = spec_of[" ".join(span.split()).lower()]
+        if hits is not None:
+            key = "«" + " ".join(span.split()) + "»"
+            hits[key] = hits.get(key, 0) + 1
+        if isinstance(spec, str):
+            return spec
+        w, ipa = spec.get("word"), spec.get("ipa")
+        if not w or not ipa:
+            return span
+        # Pin only the named word, keeping the rest of the phrase as written so
+        # misaki still handles its prosody normally.
+        wpat = re.compile(r"\b" + re.escape(w) + r"\b", re.I)
+        return wpat.sub(lambda mm: f"[{mm.group(0)}](/{ipa}/)", span, count=1)
+    return pat.sub(sub, text)
+
+def _outside_markup(text, fn):
+    """Run `fn` over everything except overrides already emitted. The term pass
+    must not reach inside a phrase's override: the IPA is not English, and
+    re-matching a term in it produces nonsense."""
+    out, i = [], 0
+    for m in MARKED.finditer(text):
+        out.append(fn(text[i:m.start()]))
+        out.append(m.group(0))
+        i = m.end()
+    out.append(fn(text[i:]))
+    return "".join(out)
+
 def build_matcher(lex):
     """One alternation over every term that has an IPA, longest first.
 
@@ -304,7 +378,7 @@ def apply_lexicon(text, pat, ipa_of, hits=None):
         if hits is not None:
             hits[w] = hits.get(w, 0) + 1
         return f"[{w}](/{ipa_of[w.lower()]}/)"
-    return pat.sub(sub, text)
+    return _outside_markup(text, lambda s: pat.sub(sub, s))
 
 # ---------------------------------------------------------------- audio
 
@@ -364,12 +438,16 @@ def main():
 
     lex = json.load(open(f"{ROOT}/lexicon.json"))["terms"]
     pat, ipa_of = build_matcher(lex)
+    ppat, spec_of = build_phrase_matcher(load_phrases(f"{ROOT}/lexicon.json"))
     hits = {}
     # paras stays as written -- it's what the reader will display and highlight.
     # Only the copy handed to the voice gets de-shouted.
     spoken = [pauses(decap(p)) for p in paras]
     hooks = [dash_hooks(decap(p)) for p in paras]
-    marked = [apply_lexicon(s, pat, ipa_of, hits) for s in spoken]
+    # Phrases first: the more specific statement wins, and apply_lexicon skips
+    # any span it has already marked up.
+    marked = [apply_lexicon(apply_phrases(s, ppat, spec_of, hits), pat, ipa_of, hits)
+              for s in spoken]
 
     words = sum(len(p.split()) for p in paras)
     print(f"{ch['title']}")

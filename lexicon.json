@@ -1,602 +1,748 @@
 {
-  "_about": "Pronunciation lexicon for the AoY audiobook. 'ipa' is injected into Kokoro via misaki's [word](/ipa/) override; 'say' is the plain-English respelling for human review only. Terms with ipa=null are left to espeak (they're English/European and it gets them right). Reviewed by ear before the full render.",
-  "_tier": "Terms occurring >=5 times in the text (121 of 840 distinct; ~70% of all occurrences).",
-  "terms": {
-    "Yukteswar": {
-      "ipa": "juːktˈɛʃwɑ",
-      "say": "yook-TESH-wah"
-    },
-    "Yukteswarji": {
-      "ipa": "jʊktˈeɪʃwɑɹdʒiː",
-      "say": "yook-TESH-war-jee"
-    },
-    "Mahasaya": {
-      "ipa": "mɑhˈɑʃɑjə",
-      "say": "ma-HAH-sha-ya"
-    },
-    "Lahiri": {
-      "ipa": "lˈɑhɪɹiː",
-      "say": "LAH-hi-ree"
-    },
-    "KRIYA": {
-      "ipa": "kɹˈiːjə",
-      "say": "KREE-yuh"
-    },
-    "Babaji": {
-      "ipa": "bɑbɑdʒˈiː",
-      "say": "ba-ba-JEE"
-    },
-    "Calcutta": {
-      "ipa": "kɑlkˈʌtə",
-      "say": "kal-KUT-ta"
-    },
-    "Benares": {
-      "ipa": "bənˈɑːɹəs",
-      "say": "ba-NAH-ras"
-    },
-    "YOGA": {
-      "ipa": "jˈoʊɡɑ",
-      "say": "YO-gah"
-    },
-    "Serampore": {
-      "ipa": "sˈɛɹəmpɔːɹ",
-      "say": "SEH-ram-pore"
-    },
-    "Ranchi": {
-      "ipa": "ɹˈɑːntʃiː",
-      "say": "RAHN-chee"
-    },
-    "Mukunda": {
-      "ipa": "mʊkˈʊndɑ",
-      "say": "moo-KOON-da"
-    },
-    "Gandhi": {
-      "ipa": "ɡˈɑːndiː",
-      "say": "GAHN-dee"
-    },
-    "MAYA": {
-      "ipa": "mˈɑːjɑ",
-      "say": "MAH-yah"
-    },
-    "Puri": {
-      "ipa": "pˈuːɹi",
-      "say": "POO-ree"
-    },
-    "Yogananda": {
-      "ipa": "joʊɡɑnˈʌndɑ",
-      "say": "yo-ga-NUN-da"
-    },
-    "Yoganandaji": {
-      "ipa": "joʊɡɑnˈʌndɑdʒiː",
-      "say": "yo-ga-NUN-da-jee"
-    },
-    "Kashmir": {
-      "ipa": "kaʃmˈɪəɹ",
-      "say": "kash-MEER"
-    },
-    "Guruji": {
-      "ipa": "ɡʊɹʊdʒˈiː",
-      "say": "goo-roo-JEE"
-    },
-    "GITA": {
-      "ipa": "ɡˈiːtɑ",
-      "say": "GEE-tah"
-    },
-    "Giri": {
-      "ipa": "ɡˈɪɹiː",
-      "say": "GIH-ree"
-    },
-    "Afzal": {
-      "ipa": "afzˈal",
-      "say": "af-ZAL"
-    },
-    "SAMADHI": {
-      "ipa": "səmˈɑːdiː",
-      "say": "sa-MAH-dee"
-    },
-    "Swamiji": {
-      "ipa": "swɑmiːdʒˈiː",
-      "say": "swah-mee-JEE"
-    },
-    "SADHU": {
-      "ipa": "sˈɑːduː",
-      "say": "SAH-doo"
-    },
-    "Pranabananda": {
-      "ipa": "pɹɑnɑbɑnˈʌndɑ",
-      "say": "pra-na-ba-NUN-da"
-    },
-    "Romesh": {
-      "ipa": "ɹˈoʊmɛʃ",
-      "say": "RO-mesh"
-    },
-    "BHAGAVAD": {
-      "ipa": "bˈʌɡəvəd",
-      "say": "BHUG-a-vad"
-    },
-    "MELA": {
-      "ipa": "mˈeɪlɑ",
-      "say": "MAY-lah"
-    },
-    "Gopal": {
-      "ipa": "ɡoʊpˈɑːl",
-      "say": "go-PAHL"
-    },
-    "Nalini": {
-      "ipa": "nˈɑlɪniː",
-      "say": "NAH-li-nee"
-    },
-    "KUMBHA": {
-      "ipa": "kˈʊmbɑ",
-      "say": "KOOM-bha"
-    },
-    "Kumar": {
-      "ipa": "kʊmˈɑːɹ",
-      "say": "koo-MAR"
-    },
-    "Auddy": {
-      "ipa": "ˈaʊdiː",
-      "say": "OW-dee"
-    },
-    "Satish": {
-      "ipa": "sətˈiːʃ",
-      "say": "sa-TEESH"
-    },
-    "Trailanga": {
-      "ipa": "tɹaɪlˈʌŋɡɑ",
-      "say": "trai-LUNG-ga"
-    },
-    "Hiranyaloka": {
-      "ipa": "hɪɹɑnjɑlˈoʊkɑ",
-      "say": "hi-ran-ya-LO-ka"
-    },
-    "Shiva": {
-      "ipa": "ʃˈɪvɑ",
-      "say": "SHI-vah"
-    },
-    "Dijen": {
-      "ipa": "dˈiːdʒɛn",
-      "say": "DEE-jen"
-    },
-    "Tagore": {
-      "ipa": "tɑɡˈɔːɹ",
-      "say": "ta-GORE"
-    },
-    "Moyi": {
-      "ipa": "mˈɔɪiː",
-      "say": "MOY-ee"
-    },
-    "FAKIR": {
-      "ipa": "fəkˈɪəɹ",
-      "say": "fa-KEER"
-    },
-    "Goddess": {
-      "ipa": null,
-      "say": "GOD-ess"
-    },
-    "Gurpar": {
-      "ipa": "ɡˈʊɹpɑːɹ",
-      "say": "GOOR-par"
-    },
-    "Brindaban": {
-      "ipa": "bɹˈɪndɑbən",
-      "say": "BRIN-da-ban"
-    },
-    "Hazrat": {
-      "ipa": "hˈazɹət",
-      "say": "HAZ-rat"
-    },
-    "Dakshineswar": {
-      "ipa": "dɑkʃɪnˈɛʃwɑ",
-      "say": "dak-shi-NESH-wah"
-    },
-    "Yogoda": {
-      "ipa": "joʊɡˈoʊdɑ",
-      "say": "yo-GO-da"
-    },
-    "Europe": {
-      "ipa": null,
-      "say": "YOOR-up"
-    },
-    "SATYAGRAHIS": {
-      "ipa": "sɑtjɑɡɹˈɑhiːz",
-      "say": "sat-ya-GRA-hees"
-    },
-    "Roma": {
-      "ipa": "ɹˈoʊmɑ",
-      "say": "RO-ma"
-    },
-    "Bareilly": {
-      "ipa": "bəɹˈeɪliː",
-      "say": "ba-RAY-lee"
-    },
-    "Keshabananda": {
-      "ipa": "keɪʃɑbɑnˈʌndɑ",
-      "say": "kay-sha-ba-NUN-da"
-    },
-    "Rabindranath": {
-      "ipa": "ɹəbˈɪndɹɑnɑθ",
-      "say": "ra-BIN-dra-nath"
-    },
-    "RAGA": {
-      "ipa": "ɹˈɑːɡɑ",
-      "say": "RAH-gah"
-    },
-    "Bhagabati": {
-      "ipa": "bɑɡɑbˈɑtiː",
-      "say": "bha-ga-BAH-tee"
-    },
-    "Uma": {
-      "ipa": "ˈuːmɑ",
-      "say": "OO-mah"
-    },
-    "Nath": {
-      "ipa": "nɑθ",
-      "say": "nath"
-    },
-    "Angeles": {
-      "ipa": "ˈændʒəliːz",
-      "say": "AN-je-leez"
-    },
-    "Shankara": {
-      "ipa": "ʃˈʌŋkɑɹɑ",
-      "say": "SHUN-ka-ra"
-    },
-    "Sasi": {
-      "ipa": "ʃˈɑʃiː",
-      "say": "SHAH-shee"
-    },
-    "Hardwar": {
-      "ipa": "hˈʌɹdwɑɹ",
-      "say": "HUR-dwar"
-    },
-    "Bhaduri": {
-      "ipa": "bɑdˈʊɹiː",
-      "say": "bha-DOO-ree"
-    },
-    "YOGI": {
-      "ipa": "jˈoʊɡiː",
-      "say": "YO-gee"
-    },
-    "VIDYALAYA": {
-      "ipa": "vɪdjˈɑlɑjɑ",
-      "say": "vid-YAH-la-ya"
-    },
-    "Chandra": {
-      "ipa": "tʃˈʌndɹɑ",
-      "say": "CHUN-dra"
-    },
-    "Kebalananda": {
-      "ipa": "keɪbɑlɑnˈʌndɑ",
-      "say": "kay-ba-la-NUN-da"
-    },
-    "Patanjali": {
-      "ipa": "pətˈʌndʒɑliː",
-      "say": "pa-TUN-ja-lee"
-    },
-    "Kanai": {
-      "ipa": "kɑnˈaɪ",
-      "say": "ka-NYE"
-    },
-    "Behari": {
-      "ipa": "bɪhˈɑɹiː",
-      "say": "bi-HAH-ree"
-    },
-    "London": {
-      "ipa": null,
-      "say": "LUN-dun"
-    },
-    "Jatinda": {
-      "ipa": "dʒətˈɪndɑ",
-      "say": "ja-TIN-da"
-    },
-    "Sadasiva": {
-      "ipa": "sɑdɑʃˈɪvɑ",
-      "say": "sa-da-SHI-va"
-    },
-    "Wardha": {
-      "ipa": "wˈɑːɹdɑ",
-      "say": "WAR-dha"
-    },
-    "Gandha": {
-      "ipa": "ɡˈʌndɑ",
-      "say": "GUN-dha"
-    },
-    "VEDAS": {
-      "ipa": "vˈeɪdɑz",
-      "say": "VAY-das"
-    },
-    "AUM": {
-      "ipa": "ɑˈuːm",
-      "say": "ah-OOM"
-    },
-    "PANTHI": {
-      "ipa": "pˈʌnθiː",
-      "say": "PUN-thee"
-    },
-    "NIRBIKALPA": {
-      "ipa": "nɪɹbɪkˈʌlpɑ",
-      "say": "nir-bi-KUL-pa"
-    },
-    "Bishnu": {
-      "ipa": "bˈɪʃnuː",
-      "say": "BISH-noo"
-    },
-    "Tarakeswar": {
-      "ipa": "tɑɹɑkˈeɪʃwɑɹ",
-      "say": "ta-ra-KESH-war"
-    },
-    "Ranikhet": {
-      "ipa": "ɹˈɑniːkeɪt",
-      "say": "RAH-nee-kate"
-    },
-    "Allahabad": {
-      "ipa": "ˌaləhɑbˈɑːd",
-      "say": "a-la-ha-BAHD"
-    },
-    "Encinitas": {
-      "ipa": "ˌɛnsɪnˈiːtəs",
-      "say": "en-si-NEE-tas"
-    },
-    "GHAT": {
-      "ipa": "ɡˈɑːt",
-      "say": "gaht"
-    },
-    "Gorakhpur": {
-      "ipa": "ɡˈɔːɹəkpʊɹ",
-      "say": "GOR-akh-poor"
-    },
-    "Charan": {
-      "ipa": "tʃˈʌɹən",
-      "say": "CHUR-an"
-    },
-    "Ranbajpur": {
-      "ipa": "ɹˈɑnbɑdʒpʊɹ",
-      "say": "RAHN-baj-poor"
-    },
-    "Nobel": {
-      "ipa": "noʊbˈɛl",
-      "say": "no-BEL"
-    },
-    "Santiniketan": {
-      "ipa": "ʃɑntɪnɪkˈeɪtən",
-      "say": "shan-ti-ni-KAY-tan"
-    },
-    "Maharaj": {
-      "ipa": "mɑhɑɹˈɑːdʒ",
-      "say": "ma-ha-RAHJ"
-    },
-    "England": {
-      "ipa": null,
-      "say": "ING-land"
-    },
-    "Burdwan": {
-      "ipa": "bˈʌɹdwɑn",
-      "say": "BURD-wan"
-    },
-    "EAST": {
-      "ipa": null,
-      "say": "east"
-    },
-    "WEST": {
-      "ipa": null,
-      "say": "west"
-    },
-    "Lal": {
-      "ipa": "lɑːl",
-      "say": "lahl"
-    },
-    "Ghosh": {
-      "ipa": "ɡˈoʊʃ",
-      "say": "gohsh"
-    },
-    "Nagpur": {
-      "ipa": "nˈɑːɡpʊɹ",
-      "say": "NAHG-poor"
-    },
-    "Dyananda": {
-      "ipa": "djɑnˈʌndɑ",
-      "say": "dya-NUN-da"
-    },
-    "Gurudeva": {
-      "ipa": "ɡʊɹʊdˈeɪvɑ",
-      "say": "goo-roo-DAY-va"
-    },
-    "Mahal": {
-      "ipa": "məhˈɑːl",
-      "say": "ma-HAHL"
-    },
-    "MAHABHARATA": {
-      "ipa": "mɑhˈɑbɑɹətɑ",
-      "say": "ma-HAH-bha-ra-ta"
-    },
-    "SRI": {
-      "ipa": "ʃɹˈiː",
-      "say": "shree"
-    },
-    "YAJNA": {
-      "ipa": "jˈʌɡnjɑ",
-      "say": "YUG-nya"
-    },
-    "Santosh": {
-      "ipa": "sɑntˈoʊʃ",
-      "say": "san-TOSH"
-    },
-    "Dwarka": {
-      "ipa": "dwˈɑːɹkɑ",
-      "say": "DWAR-ka"
-    },
-    "Srinagar": {
-      "ipa": "sɹiːnˈʌɡəɹ",
-      "say": "sree-NUG-ar"
-    },
-    "Kasimbazar": {
-      "ipa": "kɑsɪmbɑzˈɑːɹ",
-      "say": "ka-sim-ba-ZAR"
-    },
-    "Rishikesh": {
-      "ipa": "ɹɪʃɪkˈeɪʃ",
-      "say": "ri-shi-KAYSH"
-    },
-    "Howrah": {
-      "ipa": "hˈaʊɹɑ",
-      "say": "HOW-ra"
-    },
-    "Moni": {
-      "ipa": "mˈoʊniː",
-      "say": "MO-nee"
-    },
-    "Abhoya": {
-      "ipa": "əbˈoʊjɑ",
-      "say": "a-BHO-ya"
-    },
-    "Mohan": {
-      "ipa": "mˈoʊhən",
-      "say": "MO-han"
-    },
-    "Danapur": {
-      "ipa": "dˈɑnɑpʊɹ",
-      "say": "DAH-na-poor"
-    },
-    "Mataji": {
-      "ipa": "mɑtɑdʒˈiː",
-      "say": "ma-ta-JEE"
-    },
-    "Bletch": {
-      "ipa": "blɛtʃ",
-      "say": "bletch"
-    },
-    "Konnersreuth": {
-      "ipa": "kˈɒnəɹzɹɔɪt",
-      "say": "KON-ers-royt (German)"
-    },
-    "Dandamis": {
-      "ipa": "dˈandəmɪs",
-      "say": "DAN-da-mis"
-    },
-    "Kasturabai": {
-      "ipa": "kɑstʊɹɑbˈaɪ",
-      "say": "kas-tu-ra-BYE"
-    },
-    "Biur": {
-      "ipa": "bˈiːʊɹ",
-      "say": "BEE-oor"
-    },
-    "Vivekananda": {
-      "ipa": "vɪveɪkɑnˈʌndɑ",
-      "say": "vi-vay-ka-NUN-da"
-    },
-    "KRI": {
-      "ipa": "kɹˈiː",
-      "say": "KREE"
-    },
-    "Los": {
-      "ipa": "lɔs",
-      "say": "loss"
-    },
-    "Lahore": {
-      "ipa": "ləhˈɔː",
-      "say": "la-HORE"
-    },
-    "Mirabai": {
-      "ipa": "mˈiːɹɑbaɪ",
-      "say": "MEE-ra-bye"
-    },
-    "Sthiti": {
-      "ipa": "stˈɪti",
-      "say": "STHI-ti"
-    },
-    "PRONAMS": {
-      "ipa": "pɹənˈɑːmz",
-      "say": "pra-NAAMS"
-    },
-    "PRONAMED": {
-      "ipa": "pɹənˈɑːmd",
-      "say": "pra-NAAMD"
-    },
-    "UTHAO": {
-      "ipa": "ʊtˈɑːoʊ",
-      "say": "oo-TAA-oh"
-    },
-    "DHAL": {
-      "ipa": "dˈɑːl",
-      "say": "daal"
-    },
-    "LATHI": {
-      "ipa": "lˈɑːtiː",
-      "say": "LAA-tee"
-    },
-    "KUTASTHA": {
-      "ipa": "kuːtˈɑːstə",
-      "say": "koo-TAAS-ta"
-    },
-    "BHUTA": {
-      "ipa": "bˈuːtɑː",
-      "say": "BHOO-taa"
-    },
-    "KROSHA": {
-      "ipa": "kɹˈoʊʃə",
-      "say": "KROH-sha"
-    },
-    "SABHA": {
-      "ipa": "sˈʌbɑː",
-      "say": "SUB-haa"
-    },
-    "Maurya": {
-      "ipa": "mˈaʊɹjə",
-      "say": "MOWR-ya"
-    },
-    "Narayan": {
-      "ipa": "nɑɹˈɑːjən",
-      "say": "na-RAA-yan"
-    },
-    "Wurz": {
-      "ipa": "vˈʊɹts",
-      "say": "voorts"
-    },
-    "Deogarh": {
-      "ipa": "deɪoʊɡˈɑː",
-      "say": "day-oh-GAR"
-    },
-    "Pingale": {
-      "ipa": "pɪŋɡˈɑːleɪ",
-      "say": "ping-GAA-lay"
-    },
-    "Muzumdar": {
-      "ipa": "məzˈʊmdɑː",
-      "say": "muh-ZOOM-dar"
-    },
-    "Mazumdar": {
-      "ipa": "məzˈʊmdɑː",
-      "say": "muh-ZOOM-dar"
-    },
-    "Midnapore": {
-      "ipa": "mˈɪdnəpɔː",
-      "say": "MID-na-pore"
-    },
-    "Kidderpore": {
-      "ipa": "kˈɪdəpɔː",
-      "say": "KID-er-pore"
-    },
-    "Purulia": {
-      "ipa": "pʊɹˈuːliə",
-      "say": "pu-ROO-lia"
-    },
-    "Naini": {
-      "ipa": "nˈaɪniː",
-      "say": "NY-nee"
-    },
-    "Dhar": {
-      "ipa": "dˈɑː",
-      "say": "dar"
-    },
-    "Bagh": {
-      "ipa": "bˈɑːɡ",
-      "say": "baag"
-    },
-    "Lambadar": {
-      "ipa": "lʌmbˈɑːdɑː",
-      "say": "lum-BAA-dar"
-    }
+ "_about": "Pronunciation lexicon for the AoY audiobook. 'ipa' is injected into Kokoro via misaki's [word](/ipa/) override; 'say' is the plain-English respelling for human review only. Terms with ipa=null are left to espeak (they're English/European and it gets them right). Reviewed by ear before the full render.",
+ "_tier": "Terms occurring >=5 times in the text (121 of 840 distinct; ~70% of all occurrences).",
+ "terms": {
+  "Yukteswar": {
+   "ipa": "juːktˈɛʃwɑ",
+   "say": "yook-TESH-wah"
+  },
+  "Yukteswarji": {
+   "ipa": "jʊktˈeɪʃwɑɹdʒiː",
+   "say": "yook-TESH-war-jee"
+  },
+  "Mahasaya": {
+   "ipa": "mɑhˈɑʃɑjə",
+   "say": "ma-HAH-sha-ya"
+  },
+  "Lahiri": {
+   "ipa": "lˈɑhɪɹiː",
+   "say": "LAH-hi-ree"
+  },
+  "KRIYA": {
+   "ipa": "kɹˈiːjə",
+   "say": "KREE-yuh"
+  },
+  "Babaji": {
+   "ipa": "bɑbɑdʒˈiː",
+   "say": "ba-ba-JEE"
+  },
+  "Calcutta": {
+   "ipa": "kɑlkˈʌtə",
+   "say": "kal-KUT-ta"
+  },
+  "Benares": {
+   "ipa": "bənˈɑːɹəs",
+   "say": "ba-NAH-ras"
+  },
+  "YOGA": {
+   "ipa": "jˈoʊɡɑ",
+   "say": "YO-gah"
+  },
+  "Serampore": {
+   "ipa": "sˈɛɹəmpɔːɹ",
+   "say": "SEH-ram-pore"
+  },
+  "Ranchi": {
+   "ipa": "ɹˈɑːntʃiː",
+   "say": "RAHN-chee"
+  },
+  "Mukunda": {
+   "ipa": "mʊkˈʊndɑ",
+   "say": "moo-KOON-da"
+  },
+  "Gandhi": {
+   "ipa": "ɡˈɑːndiː",
+   "say": "GAHN-dee"
+  },
+  "MAYA": {
+   "ipa": "mˈɑːjɑ",
+   "say": "MAH-yah"
+  },
+  "Puri": {
+   "ipa": "pˈuːɹi",
+   "say": "POO-ree"
+  },
+  "Yogananda": {
+   "ipa": "joʊɡɑnˈʌndɑ",
+   "say": "yo-ga-NUN-da"
+  },
+  "Yoganandaji": {
+   "ipa": "joʊɡɑnˈʌndɑdʒiː",
+   "say": "yo-ga-NUN-da-jee"
+  },
+  "Kashmir": {
+   "ipa": "kaʃmˈɪəɹ",
+   "say": "kash-MEER"
+  },
+  "Guruji": {
+   "ipa": "ɡʊɹʊdʒˈiː",
+   "say": "goo-roo-JEE"
+  },
+  "GITA": {
+   "ipa": "ɡˈiːtɑ",
+   "say": "GEE-tah"
+  },
+  "Giri": {
+   "ipa": "ɡˈɪɹiː",
+   "say": "GIH-ree"
+  },
+  "Afzal": {
+   "ipa": "afzˈal",
+   "say": "af-ZAL"
+  },
+  "SAMADHI": {
+   "ipa": "səmˈɑːdiː",
+   "say": "sa-MAH-dee"
+  },
+  "Swamiji": {
+   "ipa": "swɑmiːdʒˈiː",
+   "say": "swah-mee-JEE"
+  },
+  "SADHU": {
+   "ipa": "sˈɑːduː",
+   "say": "SAH-doo"
+  },
+  "Pranabananda": {
+   "ipa": "pɹɑnɑbɑnˈʌndɑ",
+   "say": "pra-na-ba-NUN-da"
+  },
+  "Romesh": {
+   "ipa": "ɹˈoʊmɛʃ",
+   "say": "RO-mesh"
+  },
+  "BHAGAVAD": {
+   "ipa": "bˈʌɡəvəd",
+   "say": "BHUG-a-vad"
+  },
+  "MELA": {
+   "ipa": "mˈeɪlɑ",
+   "say": "MAY-lah"
+  },
+  "Gopal": {
+   "ipa": "ɡoʊpˈɑːl",
+   "say": "go-PAHL"
+  },
+  "Nalini": {
+   "ipa": "nˈɑlɪniː",
+   "say": "NAH-li-nee"
+  },
+  "KUMBHA": {
+   "ipa": "kˈʊmbɑ",
+   "say": "KOOM-bha"
+  },
+  "Kumar": {
+   "ipa": "kʊmˈɑːɹ",
+   "say": "koo-MAR"
+  },
+  "Auddy": {
+   "ipa": "ˈaʊdiː",
+   "say": "OW-dee"
+  },
+  "Satish": {
+   "ipa": "sətˈiːʃ",
+   "say": "sa-TEESH"
+  },
+  "Trailanga": {
+   "ipa": "tɹaɪlˈʌŋɡɑ",
+   "say": "trai-LUNG-ga"
+  },
+  "Hiranyaloka": {
+   "ipa": "hɪɹɑnjɑlˈoʊkɑ",
+   "say": "hi-ran-ya-LO-ka"
+  },
+  "Shiva": {
+   "ipa": "ʃˈɪvɑ",
+   "say": "SHI-vah"
+  },
+  "Dijen": {
+   "ipa": "dˈiːdʒɛn",
+   "say": "DEE-jen"
+  },
+  "Tagore": {
+   "ipa": "tɑɡˈɔːɹ",
+   "say": "ta-GORE"
+  },
+  "Moyi": {
+   "ipa": "mˈɔɪiː",
+   "say": "MOY-ee"
+  },
+  "FAKIR": {
+   "ipa": "fəkˈɪəɹ",
+   "say": "fa-KEER"
+  },
+  "Goddess": {
+   "ipa": null,
+   "say": "GOD-ess"
+  },
+  "Gurpar": {
+   "ipa": "ɡˈʊɹpɑːɹ",
+   "say": "GOOR-par"
+  },
+  "Brindaban": {
+   "ipa": "bɹˈɪndɑbən",
+   "say": "BRIN-da-ban"
+  },
+  "Hazrat": {
+   "ipa": "hˈazɹət",
+   "say": "HAZ-rat"
+  },
+  "Dakshineswar": {
+   "ipa": "dɑkʃɪnˈɛʃwɑ",
+   "say": "dak-shi-NESH-wah"
+  },
+  "Yogoda": {
+   "ipa": "joʊɡˈoʊdɑ",
+   "say": "yo-GO-da"
+  },
+  "Europe": {
+   "ipa": null,
+   "say": "YOOR-up"
+  },
+  "SATYAGRAHIS": {
+   "ipa": "sɑtjɑɡɹˈɑhiːz",
+   "say": "sat-ya-GRA-hees"
+  },
+  "Roma": {
+   "ipa": "ɹˈoʊmɑ",
+   "say": "RO-ma"
+  },
+  "Bareilly": {
+   "ipa": "bəɹˈeɪliː",
+   "say": "ba-RAY-lee"
+  },
+  "Keshabananda": {
+   "ipa": "keɪʃɑbɑnˈʌndɑ",
+   "say": "kay-sha-ba-NUN-da"
+  },
+  "Rabindranath": {
+   "ipa": "ɹəbˈɪndɹɑnɑθ",
+   "say": "ra-BIN-dra-nath"
+  },
+  "RAGA": {
+   "ipa": "ɹˈɑːɡɑ",
+   "say": "RAH-gah"
+  },
+  "Bhagabati": {
+   "ipa": "bɑɡɑbˈɑtiː",
+   "say": "bha-ga-BAH-tee"
+  },
+  "Uma": {
+   "ipa": "ˈuːmɑ",
+   "say": "OO-mah"
+  },
+  "Nath": {
+   "ipa": "nɑθ",
+   "say": "nath"
+  },
+  "Angeles": {
+   "ipa": "ˈændʒəliːz",
+   "say": "AN-je-leez"
+  },
+  "Shankara": {
+   "ipa": "ʃˈʌŋkɑɹɑ",
+   "say": "SHUN-ka-ra"
+  },
+  "Sasi": {
+   "ipa": "ʃˈɑʃiː",
+   "say": "SHAH-shee"
+  },
+  "Hardwar": {
+   "ipa": "hˈʌɹdwɑɹ",
+   "say": "HUR-dwar"
+  },
+  "Bhaduri": {
+   "ipa": "bɑdˈʊɹiː",
+   "say": "bha-DOO-ree"
+  },
+  "YOGI": {
+   "ipa": "jˈoʊɡiː",
+   "say": "YO-gee"
+  },
+  "VIDYALAYA": {
+   "ipa": "vɪdjˈɑlɑjɑ",
+   "say": "vid-YAH-la-ya"
+  },
+  "Chandra": {
+   "ipa": "tʃˈʌndɹɑ",
+   "say": "CHUN-dra"
+  },
+  "Kebalananda": {
+   "ipa": "keɪbɑlɑnˈʌndɑ",
+   "say": "kay-ba-la-NUN-da"
+  },
+  "Patanjali": {
+   "ipa": "pətˈʌndʒɑliː",
+   "say": "pa-TUN-ja-lee"
+  },
+  "Kanai": {
+   "ipa": "kɑnˈaɪ",
+   "say": "ka-NYE"
+  },
+  "Behari": {
+   "ipa": "bɪhˈɑɹiː",
+   "say": "bi-HAH-ree"
+  },
+  "London": {
+   "ipa": null,
+   "say": "LUN-dun"
+  },
+  "Jatinda": {
+   "ipa": "dʒətˈɪndɑ",
+   "say": "ja-TIN-da"
+  },
+  "Sadasiva": {
+   "ipa": "sɑdɑʃˈɪvɑ",
+   "say": "sa-da-SHI-va"
+  },
+  "Wardha": {
+   "ipa": "wˈɑːɹdɑ",
+   "say": "WAR-dha"
+  },
+  "Gandha": {
+   "ipa": "ɡˈʌndɑ",
+   "say": "GUN-dha"
+  },
+  "VEDAS": {
+   "ipa": "vˈeɪdɑz",
+   "say": "VAY-das"
+  },
+  "AUM": {
+   "ipa": "ɑˈuːm",
+   "say": "ah-OOM"
+  },
+  "PANTHI": {
+   "ipa": "pˈʌnθiː",
+   "say": "PUN-thee"
+  },
+  "NIRBIKALPA": {
+   "ipa": "nɪɹbɪkˈʌlpɑ",
+   "say": "nir-bi-KUL-pa"
+  },
+  "Bishnu": {
+   "ipa": "bˈɪʃnuː",
+   "say": "BISH-noo"
+  },
+  "Tarakeswar": {
+   "ipa": "tɑɹɑkˈeɪʃwɑɹ",
+   "say": "ta-ra-KESH-war"
+  },
+  "Ranikhet": {
+   "ipa": "ɹˈɑniːkeɪt",
+   "say": "RAH-nee-kate"
+  },
+  "Allahabad": {
+   "ipa": "ˌaləhɑbˈɑːd",
+   "say": "a-la-ha-BAHD"
+  },
+  "Encinitas": {
+   "ipa": "ˌɛnsɪnˈiːtəs",
+   "say": "en-si-NEE-tas"
+  },
+  "GHAT": {
+   "ipa": "ɡˈɑːt",
+   "say": "gaht"
+  },
+  "Gorakhpur": {
+   "ipa": "ɡˈɔːɹəkpʊɹ",
+   "say": "GOR-akh-poor"
+  },
+  "Charan": {
+   "ipa": "tʃˈʌɹən",
+   "say": "CHUR-an"
+  },
+  "Ranbajpur": {
+   "ipa": "ɹˈɑnbɑdʒpʊɹ",
+   "say": "RAHN-baj-poor"
+  },
+  "Nobel": {
+   "ipa": "noʊbˈɛl",
+   "say": "no-BEL"
+  },
+  "Santiniketan": {
+   "ipa": "ʃɑntɪnɪkˈeɪtən",
+   "say": "shan-ti-ni-KAY-tan"
+  },
+  "Maharaj": {
+   "ipa": "mɑhɑɹˈɑːdʒ",
+   "say": "ma-ha-RAHJ"
+  },
+  "England": {
+   "ipa": null,
+   "say": "ING-land"
+  },
+  "Burdwan": {
+   "ipa": "bˈʌɹdwɑn",
+   "say": "BURD-wan"
+  },
+  "EAST": {
+   "ipa": null,
+   "say": "east"
+  },
+  "WEST": {
+   "ipa": null,
+   "say": "west"
+  },
+  "Lal": {
+   "ipa": "lɑːl",
+   "say": "lahl"
+  },
+  "Ghosh": {
+   "ipa": "ɡˈoʊʃ",
+   "say": "gohsh"
+  },
+  "Nagpur": {
+   "ipa": "nˈɑːɡpʊɹ",
+   "say": "NAHG-poor"
+  },
+  "Dyananda": {
+   "ipa": "djɑnˈʌndɑ",
+   "say": "dya-NUN-da"
+  },
+  "Gurudeva": {
+   "ipa": "ɡʊɹʊdˈeɪvɑ",
+   "say": "goo-roo-DAY-va"
+  },
+  "Mahal": {
+   "ipa": "məhˈɑːl",
+   "say": "ma-HAHL"
+  },
+  "MAHABHARATA": {
+   "ipa": "mɑhˈɑbɑɹətɑ",
+   "say": "ma-HAH-bha-ra-ta"
+  },
+  "SRI": {
+   "ipa": "ʃɹˈiː",
+   "say": "shree"
+  },
+  "YAJNA": {
+   "ipa": "jˈʌɡnjɑ",
+   "say": "YUG-nya"
+  },
+  "Santosh": {
+   "ipa": "sɑntˈoʊʃ",
+   "say": "san-TOSH"
+  },
+  "Dwarka": {
+   "ipa": "dwˈɑːɹkɑ",
+   "say": "DWAR-ka"
+  },
+  "Srinagar": {
+   "ipa": "sɹiːnˈʌɡəɹ",
+   "say": "sree-NUG-ar"
+  },
+  "Kasimbazar": {
+   "ipa": "kɑsɪmbɑzˈɑːɹ",
+   "say": "ka-sim-ba-ZAR"
+  },
+  "Rishikesh": {
+   "ipa": "ɹɪʃɪkˈeɪʃ",
+   "say": "ri-shi-KAYSH"
+  },
+  "Howrah": {
+   "ipa": "hˈaʊɹɑ",
+   "say": "HOW-ra"
+  },
+  "Moni": {
+   "ipa": "mˈoʊniː",
+   "say": "MO-nee"
+  },
+  "Abhoya": {
+   "ipa": "əbˈoʊjɑ",
+   "say": "a-BHO-ya"
+  },
+  "Mohan": {
+   "ipa": "mˈoʊhən",
+   "say": "MO-han"
+  },
+  "Danapur": {
+   "ipa": "dˈɑnɑpʊɹ",
+   "say": "DAH-na-poor"
+  },
+  "Mataji": {
+   "ipa": "mɑtɑdʒˈiː",
+   "say": "ma-ta-JEE"
+  },
+  "Bletch": {
+   "ipa": "blɛtʃ",
+   "say": "bletch"
+  },
+  "Konnersreuth": {
+   "ipa": "kˈɒnəɹzɹɔɪt",
+   "say": "KON-ers-royt (German)"
+  },
+  "Dandamis": {
+   "ipa": "dˈandəmɪs",
+   "say": "DAN-da-mis"
+  },
+  "Kasturabai": {
+   "ipa": "kɑstʊɹɑbˈaɪ",
+   "say": "kas-tu-ra-BYE"
+  },
+  "Biur": {
+   "ipa": "bˈiːʊɹ",
+   "say": "BEE-oor"
+  },
+  "Vivekananda": {
+   "ipa": "vɪveɪkɑnˈʌndɑ",
+   "say": "vi-vay-ka-NUN-da"
+  },
+  "KRI": {
+   "ipa": "kɹˈiː",
+   "say": "KREE"
+  },
+  "Los": {
+   "ipa": "lɔs",
+   "say": "loss"
+  },
+  "Lahore": {
+   "ipa": "ləhˈɔː",
+   "say": "la-HORE"
+  },
+  "Mirabai": {
+   "ipa": "mˈiːɹɑbaɪ",
+   "say": "MEE-ra-bye"
+  },
+  "Sthiti": {
+   "ipa": "stˈɪti",
+   "say": "STHI-ti"
+  },
+  "PRONAMS": {
+   "ipa": "pɹənˈɑːmz",
+   "say": "pra-NAAMS"
+  },
+  "PRONAMED": {
+   "ipa": "pɹənˈɑːmd",
+   "say": "pra-NAAMD"
+  },
+  "UTHAO": {
+   "ipa": "ʊtˈɑːoʊ",
+   "say": "oo-TAA-oh"
+  },
+  "DHAL": {
+   "ipa": "dˈɑːl",
+   "say": "daal"
+  },
+  "LATHI": {
+   "ipa": "lˈɑːtiː",
+   "say": "LAA-tee"
+  },
+  "KUTASTHA": {
+   "ipa": "kuːtˈɑːstə",
+   "say": "koo-TAAS-ta"
+  },
+  "BHUTA": {
+   "ipa": "bˈuːtɑː",
+   "say": "BHOO-taa"
+  },
+  "KROSHA": {
+   "ipa": "kɹˈoʊʃə",
+   "say": "KROH-sha"
+  },
+  "SABHA": {
+   "ipa": "sˈʌbɑː",
+   "say": "SUB-haa"
+  },
+  "Maurya": {
+   "ipa": "mˈaʊɹjə",
+   "say": "MOWR-ya"
+  },
+  "Narayan": {
+   "ipa": "nɑɹˈɑːjən",
+   "say": "na-RAA-yan"
+  },
+  "Wurz": {
+   "ipa": "vˈʊɹts",
+   "say": "voorts"
+  },
+  "Deogarh": {
+   "ipa": "deɪoʊɡˈɑː",
+   "say": "day-oh-GAR"
+  },
+  "Pingale": {
+   "ipa": "pɪŋɡˈɑːleɪ",
+   "say": "ping-GAA-lay"
+  },
+  "Muzumdar": {
+   "ipa": "məzˈʊmdɑː",
+   "say": "muh-ZOOM-dar"
+  },
+  "Mazumdar": {
+   "ipa": "məzˈʊmdɑː",
+   "say": "muh-ZOOM-dar"
+  },
+  "Midnapore": {
+   "ipa": "mˈɪdnəpɔː",
+   "say": "MID-na-pore"
+  },
+  "Kidderpore": {
+   "ipa": "kˈɪdəpɔː",
+   "say": "KID-er-pore"
+  },
+  "Purulia": {
+   "ipa": "pʊɹˈuːliə",
+   "say": "pu-ROO-lia"
+  },
+  "Naini": {
+   "ipa": "nˈaɪniː",
+   "say": "NY-nee"
+  },
+  "Dhar": {
+   "ipa": "dˈɑː",
+   "say": "dar"
+  },
+  "Bagh": {
+   "ipa": "bˈɑːɡ",
+   "say": "baag"
+  },
+  "Lambadar": {
+   "ipa": "lʌmbˈɑːdɑː",
+   "say": "lum-BAA-dar"
+  },
+  "beloved": {
+   "ipa": "bɪlˈʌvɪd",
+   "note": "the devotional adjective/noun, three syllables; misaki gives the two-syllable passive everywhere. Exceptions pinned in phrases."
+  },
+  "aged": {
+   "ipa": "ˈAʤɪd",
+   "note": "'an aged woman', two syllables. 'aged 81' pinned back in phrases."
   }
+ },
+ "phrases": {
+  "beloved by all": {
+   "word": "beloved",
+   "ipa": "bɪlˈʌvd"
+  },
+  "himself beloved": {
+   "word": "beloved",
+   "ipa": "bɪlˈʌvd"
+  },
+  "be beloved if": {
+   "word": "beloved",
+   "ipa": "bɪlˈʌvd"
+  },
+  "aged nine": {
+   "word": "aged",
+   "ipa": "ˈAʤd"
+  },
+  "aged 81": {
+   "word": "aged",
+   "ipa": "ˈAʤd"
+  },
+  "the blessed Lord": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "blessed experience": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "blessed name": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "Blessed Spirit": {
+   "word": "Blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "Blessed sister": {
+   "word": "Blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "blessed haven": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "blessed air": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "blessed master": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "blessed rose petals": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "blessed sight": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "blessed feet": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "blessed role": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "blessed guru": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "blessed gifts": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "Blessed is the man": {
+   "word": "Blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "thou art blessed": {
+   "word": "blessed",
+   "ipa": "blˈɛsɪd"
+  },
+  "learned pomposities": {
+   "word": "learned",
+   "ipa": "lˈɜːnɪd"
+  },
+  "learned men": {
+   "word": "learned",
+   "ipa": "lˈɜːnɪd"
+  },
+  "learned Brahmins": {
+   "word": "learned",
+   "ipa": "lˈɜːnɪd"
+  },
+  "learned pundits": {
+   "word": "learned",
+   "ipa": "lˈɜːnɪd"
+  },
+  "a learned philosopher": {
+   "word": "learned",
+   "ipa": "lˈɜːnɪd"
+  },
+  "profoundly learned": {
+   "word": "learned",
+   "ipa": "lˈɜːnɪd"
+  },
+  "learned young sadhu": {
+   "word": "learned",
+   "ipa": "lˈɜːnɪd"
+  },
+  "unusually learned": {
+   "word": "learned",
+   "ipa": "lˈɜːnɪd"
+  },
+  "Bow to him mentally": {
+   "word": "Bow",
+   "ipa": "bˈW"
+  },
+  "an agitated bow": {
+   "word": "bow",
+   "ipa": "bˈW"
+  },
+  "silver and lead": {
+   "word": "lead",
+   "ipa": "lˈɛd"
+  },
+  "cursed by the gods": {
+   "word": "cursed",
+   "ipa": "kˈɜːst"
+  },
+  "Minute life-movements": {
+   "word": "Minute",
+   "ipa": "mInjˈuːt"
+  }
+ }
 }
