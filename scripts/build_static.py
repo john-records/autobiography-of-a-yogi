@@ -501,7 +501,7 @@ def colophon_page(chapters, slugs, narrated):
 
         <p><strong>The source.</strong> The full build — text, annotations, narration
         and the scripts that made them — is at
-        <a href="https://github.com/Kinnison-Tellus/autobiography-of-a-yogi" rel="noopener noreferrer">github.com/Kinnison-Tellus/autobiography-of-a-yogi</a>.</p>
+        <a href="https://github.com/john-records/autobiography-of-a-yogi" rel="noopener noreferrer">github.com/john-records/autobiography-of-a-yogi</a>.</p>
       </article>"""
 
     head = head_common(base, title, description, canonical, jsonld, extra)
