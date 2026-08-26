@@ -247,6 +247,7 @@ def head_common(base, title, description, canonical, jsonld, extra_links=""):
   <meta http-equiv="Content-Security-Policy" content="{attr(csp)}" />
   <meta name="referrer" content="no-referrer" />
   <title>{html.escape(title)}</title>
+  <meta name="author" content="John Records" />
   <meta name="description" content="{attr(description)}" />
   <link rel="canonical" href="{canonical}" />
 {extra_links}  <meta property="og:type" content="article" />
@@ -254,6 +255,10 @@ def head_common(base, title, description, canonical, jsonld, extra_links=""):
   <meta property="og:description" content="{attr(description)}" />
   <meta property="og:url" content="{canonical}" />
   <meta property="og:image" content="{base}icons/icon-512.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{attr(title)}" />
+  <meta name="twitter:description" content="{attr(description)}" />
+  <meta name="twitter:image" content="{base}icons/icon-512.png" />
   <link rel="icon" href="{base}icons/icon-192.png" />
   <link rel="apple-touch-icon" href="{base}icons/icon-180.png" />
   <link rel="manifest" href="{base}manifest.webmanifest" />
