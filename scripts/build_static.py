@@ -308,7 +308,6 @@ def chrome(base, toc_html, main_html, position=""):
         </div>
         <button id="theme-toggle" class="icon-btn" title="Toggle theme">◐</button>
         <button id="search-toggle" class="icon-btn" title="Search text">⌕</button>
-        <button class="icon-btn" title="Search the whole site" data-gsearch-open>🔎</button>
       </div>
     </div>
     <div id="searchbox" class="searchbox hidden">
@@ -316,13 +315,6 @@ def chrome(base, toc_html, main_html, position=""):
       <div id="search-results" class="search-results"></div>
     </div>
   </header>
-
-  <div id="gsearch-overlay" class="gsearch-overlay hidden" role="dialog" aria-modal="true" aria-label="Search johnrecords.org">
-    <div class="gsearch-panel">
-      <input id="gsearch-input" type="search" placeholder="Search johnrecords.org… (Esc to close)" autocomplete="off" />
-      <div id="gsearch-results" class="gsearch-results"></div>
-    </div>
-  </div>
 
   <div class="layout">
     <aside id="toc" class="toc" aria-label="Table of contents">{toc_html}</aside>
@@ -343,7 +335,6 @@ def chrome(base, toc_html, main_html, position=""):
   <div id="toc-backdrop" class="toc-backdrop hidden"></div>
 
   {scripts}
-  <script src="/gsearch.js" defer></script>
 </body>"""
 
 
