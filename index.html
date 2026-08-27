@@ -368,7 +368,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=14" />
+  <link rel="stylesheet" href="styles.css?v=15" />
 </head>
 <body>
   <div id="progress"><div id="progress-bar"></div></div>
@@ -377,6 +377,7 @@
     <div class="topbar-inner">
       <button id="toc-toggle" class="icon-btn" aria-label="Table of contents" title="Contents">☰</button>
       <div class="brand">
+        <a class="site-home-link" href="https://johnrecords.org/">← johnrecords.org</a>
         <span class="brand-title">Autobiography of a Yogi</span>
         <span class="brand-sub">An Annotated Edition with Audio · Public Domain</span>
       </div>
@@ -395,6 +396,7 @@
         </div>
         <button id="theme-toggle" class="icon-btn" title="Toggle theme">◐</button>
         <button id="search-toggle" class="icon-btn" title="Search text">⌕</button>
+        <button class="icon-btn" title="Search the whole site" data-gsearch-open>🔎</button>
       </div>
     </div>
     <div id="searchbox" class="searchbox hidden">
@@ -402,6 +404,13 @@
       <div id="search-results" class="search-results"></div>
     </div>
   </header>
+
+  <div id="gsearch-overlay" class="gsearch-overlay hidden" role="dialog" aria-modal="true" aria-label="Search johnrecords.org">
+    <div class="gsearch-panel">
+      <input id="gsearch-input" type="search" placeholder="Search johnrecords.org… (Esc to close)" autocomplete="off" />
+      <div id="gsearch-results" class="gsearch-results"></div>
+    </div>
+  </div>
 
   <div class="layout">
     <!-- The contents list is pre-rendered here by scripts/build_static.py so
@@ -424,13 +433,14 @@
 
   <div id="toc-backdrop" class="toc-backdrop hidden"></div>
 
-  <script src="data.js?v=14"></script>
-  <script src="annotations.js?v=14"></script>
-  <script src="footnote_overrides.js?v=14"></script>
+  <script src="data.js?v=15"></script>
+  <script src="annotations.js?v=15"></script>
+  <script src="footnote_overrides.js?v=15"></script>
   <!-- id -> URL slug, generated. Must load before app.js builds the TOC. -->
-  <script src="slugs.js?v=14"></script>
-  <script src="shared.js?v=14"></script>
-  <script src="app.js?v=14"></script>
-  <script src="audio.js?v=14"></script>
+  <script src="slugs.js?v=15"></script>
+  <script src="shared.js?v=15"></script>
+  <script src="app.js?v=15"></script>
+  <script src="audio.js?v=15"></script>
+  <script src="/gsearch.js" defer></script>
 </body>
 </html>

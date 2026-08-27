@@ -55,6 +55,9 @@ body {
 a.brand-title { color:inherit; text-decoration:none; }
 a.brand-title:hover { text-decoration:underline; }
 .brand-sub { font-size:12px; color:var(--ink-soft); font-family:var(--sans); }
+.site-home-link { font-family:var(--sans); font-size:11px; letter-spacing:.2px;
+  color:var(--ink-soft); text-decoration:none; }
+.site-home-link:hover { color:var(--accent); text-decoration:underline; }
 .controls { display:flex; align-items:center; gap:10px; }
 .size-ctrl { display:flex; align-items:center; gap:6px; color:var(--ink-soft); font-family:var(--sans); font-size:12px; }
 .size-ctrl input { width:90px; accent-color: var(--accent); }
@@ -68,6 +71,24 @@ a.brand-title:hover { text-decoration:underline; }
 .search-results .sr b { color:var(--accent); }
 .search-results .count { font-family:var(--sans); font-size:12px; color:var(--ink-soft); padding:2px 4px; }
 .hidden { display:none !important; }
+
+/* site-wide search overlay (Pagefind), separate from the in-book text search above */
+.gsearch-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,.45);
+  display:flex; align-items:flex-start; justify-content:center; padding:10vh 16px 0; }
+.gsearch-overlay.hidden { display:none; }
+.gsearch-panel { background:var(--paper); color:var(--ink); border-radius:14px; width:100%;
+  max-width:640px; box-shadow:0 20px 60px rgba(0,0,0,.35); padding:14px; max-height:70vh;
+  display:flex; flex-direction:column; }
+.gsearch-panel input { width:100%; padding:12px 14px; font-family:var(--sans); font-size:16px;
+  border:1px solid var(--line); border-radius:10px; background:var(--paper); color:var(--ink);
+  box-sizing:border-box; }
+.gsearch-results { margin-top:10px; overflow:auto; }
+.gsearch-hit { display:block; padding:10px 8px; border-radius:8px; text-decoration:none; color:inherit; }
+.gsearch-hit:hover { background:var(--accent-soft); }
+.gsearch-hit-title { display:block; font-family:var(--sans); font-weight:600; font-size:14px; }
+.gsearch-hit-excerpt { display:block; font-family:var(--sans); font-size:13px; color:var(--ink-soft); margin-top:2px; }
+.gsearch-hit-excerpt mark { background:#ffe082; color:#333; border-radius:3px; padding:0 2px; }
+.gsearch-empty { padding:10px 8px; font-family:var(--sans); font-size:13px; color:var(--ink-soft); }
 
 /* layout — single centered reading column; TOC & notes are overlay drawers
    so opening/closing them never shifts the reading text. */
