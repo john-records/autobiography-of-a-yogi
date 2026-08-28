@@ -48,6 +48,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -75,11 +76,16 @@ ASSETS_JS = ["data.js", "annotations.js", "footnote_overrides.js", "slugs.js",
              "shared.js", "app.js", "audio.js"]
 
 # Mirrors index.html. {extra} is where a page's JSON-LD hash is spliced in.
+# media-src allows jsDelivr: GitHub Pages serves .mp3 as "audio/mp3", which
+# Safari refuses to play, so audio.js redirects the narration itself to a
+# jsDelivr mirror of this repo (correct "audio/mpeg" header) on hosts known to
+# have the bad one. See audio.js's JSDELIVR_PIN comment for the full story.
 CSP = (
     "default-src 'self'; script-src 'self'{extra}; "
     "style-src 'self' https://fonts.googleapis.com; "
     "font-src 'self' https://fonts.gstatic.com; "
     "img-src 'self' https://commons.wikimedia.org https://upload.wikimedia.org data:; "
+    "media-src 'self' https://cdn.jsdelivr.net; "
     "connect-src 'self'; base-uri 'none'; form-action 'none'; frame-src 'none'"
 )
 
@@ -631,6 +637,31 @@ def generated_dirs(chapters, slugs):
            [os.path.join(ROOT, "colophon"), os.path.join(ROOT, "transcripts")]
 
 
+def _refresh_jsdelivr_pin():
+    """audio.js pins its jsDelivr mirror to the commit that last touched the
+    narration (see the comment above JSDELIVR_PIN there for why: a branch
+    reference would leave jsDelivr's edge cache serving a stale mp3 for hours
+    after a re-narrate). Recompute it here so nobody has to remember to bump
+    it by hand. If git is unavailable -- e.g. a shallow checkout -- this
+    leaves the existing pin alone rather than failing the build."""
+    try:
+        sha = subprocess.run(
+            ["git", "log", "-1", "--format=%H", "--", "audio/*.mp3"],
+            cwd=ROOT, capture_output=True, text=True, check=True,
+        ).stdout.strip()
+    except Exception:
+        return
+    if not sha:
+        return
+    path = os.path.join(ROOT, "audio.js")
+    src = open(path, encoding="utf-8").read()
+    new_src, n = re.subn(r'(var JSDELIVR_PIN = ")[0-9a-f]{40}(";)',
+                          r"\g<1>%s\g<2>" % sha, src)
+    if n and new_src != src:
+        open(path, "w", encoding="utf-8").write(new_src)
+        print("audio.js: jsDelivr pin -> %s" % sha)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--clean", action="store_true",
@@ -653,6 +684,8 @@ def main():
                 os.remove(p)
         print("cleaned.")
         return
+
+    _refresh_jsdelivr_pin()
 
     tdir = os.path.join(ROOT, "transcripts")
     os.makedirs(tdir, exist_ok=True)

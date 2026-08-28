@@ -33,6 +33,32 @@
   // the whole book, not for one chapter.
   var rate = parseFloat(localStorage.getItem("aoy-rate") || "1") || 1;
 
+  // GitHub Pages serves .mp3 as "audio/mp3", a non-standard Content-Type that
+  // Safari refuses to play (NotSupportedError on the <audio> element) even
+  // though the file itself is fine -- confirmed against here.now, which
+  // serves the identical bytes as "audio/mpeg" and plays everywhere. jsDelivr
+  // mirrors this public repo with the correct header, so hosts known to have
+  // the bad header get redirected there for the mp3 only; the timing JSON and
+  // everything else keeps coming from the page's own origin.
+  //
+  // Pinned to the commit that last touched audio/, not to a branch: a branch
+  // reference would leave jsDelivr serving a stale mp3 (their edge caches for
+  // hours) if a chapter is ever re-narrated, exactly the kind of drift that
+  // bit the heteronym sweep. Update this by hand -- or from build_static.py,
+  // which recomputes it from git on every run -- whenever audio/ changes.
+  var JSDELIVR_PIN = "7e8be53d3602a1c45375eb20124a3c0c41ff724b";
+
+  function usesLocalAudio() {
+    var h = location.hostname;
+    return h === "localhost" || h === "127.0.0.1" || /(^|\.)here\.now$/.test(h);
+  }
+
+  function mp3Url(id) {
+    if (usesLocalAudio()) return AOY.base() + "audio/" + encodeURIComponent(id) + ".mp3";
+    return "https://cdn.jsdelivr.net/gh/john-records/autobiography-of-a-yogi@" +
+      JSDELIVR_PIN + "/audio/" + encodeURIComponent(id) + ".mp3";
+  }
+
   function fmt(t) {
     if (!isFinite(t)) return "0:00";
     var m = Math.floor(t / 60), s = Math.floor(t % 60);
@@ -259,7 +285,7 @@
             $("#pl-dur").textContent = fmt(audio.duration);
           });
         }
-        audio.src = AOY.base() + "audio/" + encodeURIComponent(id) + ".mp3";
+        audio.src = mp3Url(id);
         audio.playbackRate = rate;
         // Not noAudio() on failure: the file is plainly there, so a refused
         // resume means the browser wanted a fresh gesture. Leave the bar up
