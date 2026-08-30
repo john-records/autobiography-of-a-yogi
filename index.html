@@ -4416,7 +4416,10 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
   // the cover and offer an explicit resume rather than silently jumping back
   // into the last chapter — the reader decides, the page doesn't.
   var startHash=(location.hash||'').match(/ch(\d+)/);
-  go(startHash?+startHash[1]:0,true);
+  var startI=startHash?+startHash[1]:0;
+  var startP=getProgress();
+  if(startP&&startP.i>startI)startI=0;
+  go(startI,true);
   if(cur===0)renderCoverExtras();
 })();
 </script>
