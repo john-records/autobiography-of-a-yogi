@@ -70,6 +70,10 @@ audio/*
 !audio/Preface.json
 !audio/Chapter_*.mp3
 !audio/Chapter_*.json
+# webbook build's own audio naming (ch{N}.mp3/.json, foreword-offset copies
+# of the files above) -- ships alongside them, same bytes under a new name.
+!audio/ch*.mp3
+!audio/ch*.json
 verdicts.json
 proposals.*
 .review-cert/

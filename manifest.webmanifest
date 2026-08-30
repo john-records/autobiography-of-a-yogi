@@ -1,15 +1,25 @@
 {
-  "name": "Autobiography of a Yogi — Annotated Edition with Audio",
-  "short_name": "Yogi",
-  "description": "The public domain text of Paramahansa Yogananda's Autobiography of a Yogi, narrated chapter by chapter, with annotations and linked references.",
+  "name": "Autobiography of a Yogi",
+  "short_name": "Yogananda",
+  "description": "Paramahansa Yogananda's 1946 spiritual autobiography — the public-domain text, annotated with footnotes and narrated in full.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f6f1e7",
-  "theme_color": "#1e1a14",
+  "theme_color": "#f6f1e7",
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }

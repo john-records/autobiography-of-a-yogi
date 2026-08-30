@@ -1,0 +1,20 @@
+{
+  "title": "Autobiography of a Yogi",
+  "description": "Paramahansa Yogananda's 1946 spiritual autobiography — the public-domain text, annotated with footnotes and narrated in full.",
+  "kind": "An Annotated Edition",
+  "author": "Paramahansa Yogananda",
+  "lang": "en",
+  "shortName": "Yogananda",
+  "icon": "ॐ",
+  "iconNudgeX": 0,
+  "iconNudge": 0,
+  "theme": "parchment",
+  "defaultMode": "day",
+  "ns": "aoy",
+  "foreword": "Preface",
+  "afterword": "Colophon",
+  "chaptersFile": "reader-chapters.json",
+  "smartQuotes": false,
+  "slug": "",
+  "url": ""
+}
