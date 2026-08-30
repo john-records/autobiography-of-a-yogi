@@ -35,12 +35,20 @@
   // would simply not run. A <base href> is out for the same reason
   // (base-uri 'none'), and would rewrite every relative URL on the page, not
   // just ours.
+  // Resolved to an ABSOLUTE url the first time this runs (page load, before
+  // any client-side navigation), not left as the bare relative string. A
+  // relative "../" is only correct resolved against the URL that was true
+  // when this ran; app.js's pushState-based chapter routing changes
+  // location.pathname afterward, and a relative base re-resolved against
+  // that later, deeper (or shallower) path silently points at the wrong
+  // directory — this is what broke narration on cover -> "Begin Reading".
   var _base = null;
   function base() {
     if (_base === null) {
       var m = (typeof document !== "undefined") &&
         document.querySelector('meta[name="aoy-base"]');
-      _base = (m && m.getAttribute("content")) || "";
+      var rel = (m && m.getAttribute("content")) || "";
+      _base = (typeof location !== "undefined") ? new URL(rel, location.href).href : rel;
     }
     return _base;
   }
