@@ -4412,13 +4412,14 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
     x0=y0=null;
   },{passive:true});
 
-  // initial position: a hash deep-link jumps straight in; otherwise land on
-  // the cover and offer an explicit resume rather than silently jumping back
-  // into the last chapter — the reader decides, the page doesn't.
+  // initial position: a #chN deep-link jumps straight in and always wins — it
+  // is someone arriving from a search result, a bookmark or a shared link, and
+  // bouncing them to the cover because they happen to have read further is the
+  // one thing a deep link must never do. (go() clamps i, so a bogus hash is
+  // safe.) With no hash we land on the cover and offer an explicit resume
+  // rather than silently jumping back in — the reader decides, the page doesn't.
   var startHash=(location.hash||'').match(/ch(\d+)/);
   var startI=startHash?+startHash[1]:0;
-  var startP=getProgress();
-  if(startP&&startP.i>startI)startI=0;
   go(startI,true);
   if(cur===0)renderCoverExtras();
 })();
