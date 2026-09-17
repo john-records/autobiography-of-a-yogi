@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://johnrecords.org/autobiography-of-a-yogi/sitemap.xml
