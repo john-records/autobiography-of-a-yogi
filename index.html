@@ -47,9 +47,9 @@ svg{display:block}
 .bar .mid{display:flex;flex-direction:column;align-items:center;justify-content:center;
   max-width:55vw;overflow:hidden;text-align:center;line-height:1.15}
 .bar-book{font-family:var(--chrome-font);font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  font-size:.112.5rem;color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  font-size:1.125rem;color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .bar-ch{font-family:var(--chrome-font);font-weight:500;letter-spacing:.16em;text-transform:uppercase;
-  font-size:.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;min-height:.8em}
+  font-size:0.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;min-height:.8em}
 .iconbtn{appearance:none;border:0;background:none;color:var(--ink);cursor:pointer;width:40px;height:40px;
   display:grid;place-items:center;border-radius:50%;padding:0;transition:background .2s}
 .iconbtn:hover{background:var(--sel)}
@@ -66,7 +66,7 @@ svg{display:block}
 .ring svg{transform:rotate(-90deg);width:26px;height:26px}
 .ring .ring-bg{fill:none;stroke:var(--rule-2);stroke-width:3}
 .ring .ring-fg{fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;transition:stroke-dashoffset .25s ease}
-.ring-pct{font-family:var(--chrome-font);font-size:.7.5rem;color:var(--muted);min-width:2.3em;
+.ring-pct{font-family:var(--chrome-font);font-size:0.75rem;color:var(--muted);min-width:2.3em;
   text-align:center;font-variant-numeric:tabular-nums}
 
 /* text-size popover */
@@ -80,8 +80,8 @@ svg{display:block}
   display:grid;place-items:center;line-height:1;transition:background .2s,color .2s}
 .fontpop .fbtn:hover:not(:disabled){background:var(--gold-2);color:var(--page)}
 .fontpop .fbtn:disabled{opacity:.32;cursor:default}
-.fontpop .fbtn.small{font-size:.118.75rem}.fontpop .fbtn.large{font-size:1.775rem}
-.fontpop .fval{font-family:var(--chrome-font);letter-spacing:.06em;font-size:.102.5rem;color:var(--muted);
+.fontpop .fbtn.small{font-size:1.188rem}.fontpop .fbtn.large{font-size:1.775rem}
+.fontpop .fval{font-family:var(--chrome-font);letter-spacing:.06em;font-size:1.025rem;color:var(--muted);
   min-width:3.6em;text-align:center;font-variant-numeric:tabular-nums}
 
 /* search panel — a full-width popover under the bar rather than a drawer, so
@@ -96,10 +96,10 @@ svg{display:block}
   border:1px solid var(--rule-2);border-radius:10px;background:var(--bg);color:var(--ink)}
 .sresults{margin-top:8px;max-height:44vh;overflow:auto}
 .sresults .sr{padding:8px 10px;border-radius:8px;cursor:pointer;font-family:var(--chrome-font);
-  font-size:.10rem;line-height:1.55;color:var(--ink)}
+  font-size:1rem;line-height:1.55;color:var(--ink)}
 .sresults .sr:hover{background:var(--sel)}
 .sresults .sr b{color:var(--gold-2);font-style:normal}
-.sresults .count{font-family:var(--chrome-font);font-size:.85rem;color:var(--muted);padding:2px 4px;
+.sresults .count{font-family:var(--chrome-font);font-size:0.85rem;color:var(--muted);padding:2px 4px;
   text-transform:uppercase;letter-spacing:.08em}
 mark{background:var(--sel);color:inherit;border-radius:3px;padding:0 2px}
 
@@ -111,14 +111,14 @@ mark{background:var(--sel);color:inherit;border-radius:3px;padding:0 2px}
   transition:transform .34s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
 .drawer.open{transform:translateX(0)}
 .drawer h2{font-family:var(--chrome-font);font-weight:600;letter-spacing:.16em;text-transform:uppercase;
-  font-size:.10rem;color:var(--gold);margin:22px 26px 4px}
+  font-size:1rem;color:var(--gold);margin:22px 26px 4px}
 .toc{list-style:none;margin:0;padding:8px 0 26px;overflow-y:auto;flex:1}
 .toc li{margin:0}
 .toc button{width:100%;text-align:left;background:none;border:0;cursor:pointer;color:var(--ink);
   font-family:var(--body-font);font-size:1.275rem;padding:9px 26px;display:flex;gap:12px;align-items:baseline;
   line-height:1.3;transition:background .15s}
 .toc button:hover{background:var(--sel)}
-.toc button .n{font-family:var(--chrome-font);color:var(--gold);font-size:.102.5rem;letter-spacing:.1em;
+.toc button .n{font-family:var(--chrome-font);color:var(--gold);font-size:1.025rem;letter-spacing:.1em;
   min-width:1.6em;font-variant-numeric:tabular-nums}
 .toc button.active{background:var(--sel)}
 .toc button.active .t{color:var(--gold-2)}
@@ -140,13 +140,13 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
 .cover .cover-img{width:min(72vw,360px);height:auto;border-radius:5px;box-shadow:0 18px 50px rgba(0,0,0,.45);margin:0 auto 22px}
 .cover h1{font-family:var(--display-font);font-weight:600;font-size:clamp(3.125rem,2.5rem + 6vw,5.25rem);
   line-height:1.04;letter-spacing:.04em;margin:.1em 0 0;color:var(--ink)}
-.cover .amp{display:block;font-style:italic;font-weight:500;color:var(--gold);font-size:.57.5em;
+.cover .amp{display:block;font-style:italic;font-weight:500;color:var(--gold);font-size:0.575em;
   letter-spacing:.06em;margin:.18em 0}
 .cover .ded{font-style:italic;color:var(--muted);font-size:1.3rem;margin:26px 0 2px;letter-spacing:.02em}
-.cover .kind{font-family:var(--chrome-font);text-transform:uppercase;letter-spacing:.42em;font-size:.82.5rem;
+.cover .kind{font-family:var(--chrome-font);text-transform:uppercase;letter-spacing:.42em;font-size:0.825rem;
   color:var(--muted);margin-top:30px;padding-left:.42em}
 .begin{margin-top:34px;appearance:none;cursor:pointer;font-family:var(--chrome-font);text-transform:uppercase;
-  letter-spacing:.28em;font-size:.97.5rem;color:var(--ink);background:none;border:1px solid var(--rule-2);
+  letter-spacing:.28em;font-size:0.975rem;color:var(--ink);background:none;border:1px solid var(--rule-2);
   border-radius:999px;padding:13px 30px 13px 32px;transition:all .25s}
 .begin:hover{border-color:var(--gold);color:var(--gold-2);letter-spacing:.32em}
 .cover-actions{display:flex;flex-direction:column;align-items:center}
@@ -154,33 +154,33 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
    gets its own sentence — sentence case, soft ink: an invitation, not a banner.
    Hidden by default and revealed only once chapter 1's audio is confirmed to
    exist (see the HEAD-probe below), so a book with no narration yet shows nothing. */
-.cover-audio{font-family:var(--chrome-font);font-size:.90rem;letter-spacing:.02em;line-height:1.75;
+.cover-audio{font-family:var(--chrome-font);font-size:0.9rem;letter-spacing:.02em;line-height:1.75;
   color:var(--muted);max-width:29em;margin:18px auto 0;text-transform:none}
 .resumeBtn{margin-top:14px;appearance:none;cursor:pointer;font-family:var(--chrome-font);text-transform:uppercase;
-  letter-spacing:.22em;font-size:.90rem;color:var(--gold-2);background:none;border:1px solid var(--gold);
+  letter-spacing:.22em;font-size:0.9rem;color:var(--gold-2);background:none;border:1px solid var(--gold);
   border-radius:999px;padding:11px 26px;transition:all .25s}
 .resumeBtn:hover{background:var(--sel)}
 .resetBtn{appearance:none;border:0;background:none;color:var(--muted);font-family:var(--chrome-font);
-  font-size:.82.5rem;letter-spacing:.05em;cursor:pointer;text-decoration:underline;margin-top:10px}
+  font-size:0.825rem;letter-spacing:.05em;cursor:pointer;text-decoration:underline;margin-top:10px}
 .resetBtn:hover{color:var(--ink)}
 .toc li.resume-row button{font-style:italic;color:var(--gold-2)}
 .dlwrap{margin-top:20px;min-height:1px}
 .dlbook{display:inline-flex;align-items:center;gap:9px;color:var(--muted);font-family:var(--chrome-font);
-  text-transform:uppercase;letter-spacing:.2em;font-size:.82.5rem;text-decoration:none;transition:color .25s}
+  text-transform:uppercase;letter-spacing:.2em;font-size:0.825rem;text-decoration:none;transition:color .25s}
 .dlbook svg{width:17px;height:17px;color:var(--gold);opacity:.85}
 .dlbook:hover{color:var(--gold-2)}
 
 /* read-aloud: per-chapter download link. The hint text and the persistent
    bottom bar itself are styled further down, under "narration". */
 .chdl{display:block;text-align:center;margin-top:10px;font-family:var(--chrome-font);text-transform:uppercase;
-  letter-spacing:.18em;font-size:.7.5rem;color:var(--muted);text-decoration:none;opacity:.72;
+  letter-spacing:.18em;font-size:0.75rem;color:var(--muted);text-decoration:none;opacity:.72;
   transition:color .25s,opacity .25s}
 .chdl svg{display:inline-block;width:12px;height:12px;vertical-align:-2px;margin-right:5px;color:var(--gold);opacity:.85}
 .chdl:hover{color:var(--gold-2);opacity:1}
 
 /* chapter */
 .chead{text-align:center;margin:14px 0 30px}
-.chead .num{font-family:var(--chrome-font);text-transform:uppercase;letter-spacing:.4em;font-size:.8.75rem;
+.chead .num{font-family:var(--chrome-font);text-transform:uppercase;letter-spacing:.4em;font-size:0.875rem;
   color:var(--gold);padding-left:.4em}
 .chead .ttl{font-family:var(--display-font);font-weight:600;font-size:clamp(2.875rem,2.125rem + 5vw,4.75rem);
   line-height:1.05;margin:.18em 0 0;color:var(--ink)}
@@ -189,7 +189,7 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
 .page p.first{text-indent:0}
 .page p:not(.first){text-indent:1.4em}
 .page p.brk{text-indent:0;text-align:center;letter-spacing:.8em;text-indent:.8em;
-  color:var(--gold);margin:1.9em 0;font-size:.106.25em;user-select:none}
+  color:var(--gold);margin:1.9em 0;font-size:1.062em;user-select:none}
 .page p.first::first-letter{font-family:var(--display-font);font-weight:600;color:var(--gold);float:left;
   font-size:4.375em;line-height:.74;padding:.04em .12em 0 0;margin-top:.04em}
 .page em{font-style:italic}
@@ -204,7 +204,7 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
    <button> inside the <p>, which leaves the paragraph count -- the contract the
    highlighting depends on -- untouched. */
 .note-ref{appearance:none;border:0;padding:0 .12em;margin:0;background:none;cursor:pointer;
-  font-family:var(--body-font);font-size:.90em;vertical-align:super;line-height:0;
+  font-family:var(--body-font);font-size:0.9em;vertical-align:super;line-height:0;
   color:var(--gold);text-indent:0}
 .note-ref:hover{color:var(--gold-2)}
 .noted{border-bottom:1px dotted var(--gold);cursor:pointer}
@@ -214,8 +214,8 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
   transition:transform .3s cubic-bezier(.22,.9,.3,1);max-height:60vh;overflow:auto}
 .notepanel.open{transform:translate(-50%,0)}
 .notepanel .nt{font-family:var(--chrome-font);letter-spacing:.16em;text-transform:uppercase;
-  font-size:.82.5rem;color:var(--muted);margin-bottom:8px}
-.notepanel .nb{font-size:.117.5rem;line-height:1.62}
+  font-size:0.825rem;color:var(--muted);margin-bottom:8px}
+.notepanel .nb{font-size:1.175rem;line-height:1.62}
 .notepanel .nx{position:absolute;top:10px;right:12px;appearance:none;border:0;background:none;
   color:var(--muted);font-size:1.375rem;cursor:pointer;line-height:1}
 .notepanel .nx:hover{color:var(--ink)}
@@ -226,10 +226,10 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
 .pgnav{display:flex;justify-content:space-between;gap:14px;margin-top:30px;padding-top:24px;border-top:1px solid var(--rule)}
 .pgnav button{flex:1;background:none;border:1px solid var(--rule-2);border-radius:12px;cursor:pointer;
   color:var(--ink);font-family:var(--chrome-font);text-transform:uppercase;letter-spacing:.14em;
-  font-size:.90rem;padding:14px 10px;transition:all .22s;line-height:1.3}
+  font-size:0.9rem;padding:14px 10px;transition:all .22s;line-height:1.3}
 .pgnav button:hover:not(:disabled){border-color:var(--gold);color:var(--gold-2)}
 .pgnav button:disabled{opacity:.32;cursor:default}
-.pgnav button .lbl{display:block;font-style:normal;font-size:.77.5rem;color:var(--muted);letter-spacing:.2em;margin-bottom:3px}
+.pgnav button .lbl{display:block;font-style:normal;font-size:0.775rem;color:var(--muted);letter-spacing:.2em;margin-bottom:3px}
 .pgnav button.next{text-align:right}.pgnav button.prev{text-align:left}
 
 /* floating footer */
@@ -241,7 +241,7 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
 .foot .arrow:hover:not(:disabled){background:var(--sel)}
 .foot .arrow:disabled{opacity:.28;cursor:default}
 .foot .arrow svg{width:22px;height:22px}
-.foot .pos{font-family:var(--chrome-font);letter-spacing:.2em;font-size:.92.5rem;color:var(--muted);
+.foot .pos{font-family:var(--chrome-font);letter-spacing:.2em;font-size:0.925rem;color:var(--muted);
   text-transform:uppercase;min-width:5.4em;text-align:center;font-variant-numeric:tabular-nums}
 .foot.cover-hide{transform:translateY(110%)}
 
@@ -264,7 +264,7 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
 .pl-rate{font-family:var(--chrome-font);font-size:13.75px;padding:2px 4px;cursor:pointer;
   background:var(--page);color:var(--ink);border:1px solid var(--rule-2);border-radius:10px}
 /* instructions under the chapter title, only on a chapter that has narration */
-.ch-audio-hint{font-family:var(--chrome-font);font-size:.85rem;letter-spacing:.02em;line-height:1.6;
+.ch-audio-hint{font-family:var(--chrome-font);font-size:0.85rem;letter-spacing:.02em;line-height:1.6;
   color:var(--muted);max-width:30em;margin:14px auto 0;text-transform:none}
 
 @media (max-width:480px){main{padding-left:18px;padding-right:18px}.page p:not(.first){text-indent:1.2em}
