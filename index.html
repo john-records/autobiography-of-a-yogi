@@ -281,6 +281,26 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
   .player{gap:6px;padding:6px 10px}.pl-rate,.pl-time{display:none}
   .ring-pct{display:none}.ring svg{width:22px;height:22px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* site-wide search overlay (Pagefind) */
+.gsearch-overlay{position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,.45);
+  display:flex; align-items:flex-start; justify-content:center; padding:10vh 16px 0}
+.gsearch-overlay.hidden{display:none}
+.gsearch-panel{background:var(--page); color:var(--ink); border-radius:14px; width:100%;
+  max-width:640px; box-shadow:0 20px 60px rgba(0,0,0,.35); padding:14px; max-height:70vh;
+  display:flex; flex-direction:column}
+.gsearch-panel input{width:100%; padding:12px 14px; font-size:20px; font-family:inherit; border:1px solid var(--rule-2);
+  border-radius:10px; background:var(--page); color:var(--ink); box-sizing:border-box}
+.gsearch-results{margin-top:10px; overflow:auto}
+.gsearch-hit{display:block; padding:10px 8px; border-radius:8px; text-decoration:none; color:inherit}
+.gsearch-hit:hover{background:var(--sel)}
+.gsearch-hit-title{display:block; font-weight:600; font-size:17.5px}
+.gsearch-hit-excerpt{display:block; font-size:16.25px; color:var(--muted); margin-top:2px}
+.gsearch-hit-excerpt mark{background:#ffe082; color:#333; border-radius:3px; padding:0 2px}
+.gsearch-empty{padding:10px 8px; font-size:16.25px; color:var(--muted)}
+.gsearch-panel{font-family:var(--chrome-font)}
+.searchpop .sitesearch{appearance:none;border:0;background:none;cursor:pointer;display:block;margin:8px 0 0;padding:6px 4px;
+  font-family:var(--chrome-font);font-size:0.85rem;color:var(--muted);text-align:left}
+.searchpop .sitesearch:hover,.searchpop .sitesearch:focus-visible{color:var(--gold-2)}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Book","name":"Autobiography of a Yogi","url":"https://johnrecords.org/autobiography-of-a-yogi/","author":{"@type":"Person","name":"Paramahansa Yogananda"},"contributor":{"@type":"Person","name":"John Records","description":"Annotations and narration"},"datePublished":"1946","description":"Paramahansa Yogananda's 1946 spiritual autobiography — the public-domain text, annotated with footnotes and narrated in full."}
@@ -359,6 +379,14 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
   <div class="swrap">
     <input id="searchInput" type="search" placeholder="Search the text&hellip; (Enter &#8629;)" aria-label="Search the text">
     <div class="sresults" id="searchResults"></div>
+    <button class="sitesearch" id="siteSearchBtn" type="button" data-gsearch-open>Search all of johnrecords.org &rarr;</button>
+  </div>
+</div>
+
+<div id="gsearch-overlay" class="gsearch-overlay hidden" role="dialog" aria-modal="true" aria-label="Search johnrecords.org" data-pagefind-ignore>
+  <div class="gsearch-panel">
+    <input id="gsearch-input" type="search" placeholder="Search johnrecords.org… (Esc to close)" autocomplete="off" />
+    <div id="gsearch-results" class="gsearch-results"></div>
   </div>
 </div>
 
@@ -4321,6 +4349,7 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
   function closeSearch(){searchPop.classList.remove('open');searchBtn.setAttribute('aria-expanded','false');}
   searchBtn.onclick=function(e){e.stopPropagation();if(searchPop.classList.contains('open'))closeSearch();else openSearch();};
   searchPop.onclick=function(e){e.stopPropagation();};
+  document.getElementById('siteSearchBtn').addEventListener('click',closeSearch);
   document.addEventListener('click',function(){if(searchPop.classList.contains('open'))closeSearch();});
   searchInput.addEventListener('keydown',function(e){if(e.key==='Enter')doSearch();else if(e.key==='Escape')closeSearch();});
 
@@ -4440,5 +4469,6 @@ main{max-width:39rem;margin:0 auto;padding:52px 22px 120px;
   if(cur===0)renderCoverExtras();
 })();
 </script>
+<script src="/gsearch.js" defer></script>
 </body>
 </html>
